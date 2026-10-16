@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#070b14">
-  <meta name="description" content="Anime:P — discover anime, save your watchlist, and find official free streams or licensed viewing options.">
+  <meta name="description" content="Anime:P — discover anime, save your watchlist, and watch through authorized video sources.">
   <title>Anime:P — Your Anime Universe</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
   <div class="ambient ambient-one"></div>
   <div class="ambient ambient-two"></div>
   <header class="topbar">
-    <a class="brand" href="#" aria-label="Anime:P home"><span class="brand-mark">:P</span><span class="brand-word">ANIME<span>:</span>P</span></a>
+    <a class="brand" href="#" aria-label="Anime:P home"><span class="brand-mark">A<span>:</span>P</span><span class="brand-word">ANIME<span>:</span>P</span></a>
     <nav class="main-nav" aria-label="Main navigation">
       <button class="nav-link active" data-view="home">Home</button>
       <button class="nav-link" data-view="browse">Discover</button>
@@ -36,20 +36,20 @@
     <section id="hero" class="hero">
       <div class="hero-copy">
         <div class="eyebrow"><span class="pulse-dot"></span> YOUR NEXT OBSESSION STARTS HERE</div>
-        <p class="hero-kicker">FEATURED ANIME · <span id="heroRating">FEATURED ANIME</span></p>
-        <h1 id="heroTitle">Attack on Titan<span>.</span></h1>
-        <p class="hero-description" id="heroDescription">Humanity lives behind enormous walls to protect itself from the Titans. Discover the series, explore episode listings, and find official viewing options.</p>
+        <p class="hero-kicker">DISCOVER · STREAM · REPEAT</p>
+        <h1>Find your next<br><span>anime obsession.</span></h1>
+        <p class="hero-description">Explore new worlds, meet unforgettable characters, and keep your next episode close.</p>
         <div class="hero-actions">
-          <button class="btn btn-primary" id="heroWatchButton"><span>▶</span> View anime</button>
-          <button class="btn btn-ghost" id="heroListButton">＋ Add to my list</button>
-          <button class="btn btn-ghost" id="exploreButton">Explore anime</button>
+          <button class="btn btn-primary" id="exploreButton"><span>✦</span> Explore anime</button>
+          <button class="btn btn-ghost" id="heroListButton">♡ My watchlist</button>
         </div>
-        <div class="hero-meta"><span class="meta-chip">OFFICIAL SOURCES</span><span>Free streams when available</span><span class="meta-separator">•</span><span>Licensed options with fallbacks</span></div>
+        <div class="hero-meta"><span class="meta-chip">ANIME:P</span><span>Official free streams when available</span><span class="meta-separator">•</span><span>Licensed viewing options</span></div>
       </div>
-      <div class="hero-art hero-feature-art" aria-label="Featured Attack on Titan poster">
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
         <div class="hero-glow"></div>
-        <div class="hero-poster-frame"><img id="heroPoster" alt="Attack on Titan poster" src="" class="hidden" onerror="this.classList.add('hidden');this.nextElementSibling?.classList.remove('hidden')"><div class="hero-poster-fallback"><span>進撃の巨人</span><strong>ATTACK ON TITAN</strong><small>FEATURED SERIES</small></div><div class="hero-poster-shade"></div></div>
-        <div class="hero-art-caption"><span>ANIME:P FEATURED</span><small>DISCOVER · SAVE · WATCH LEGALLY</small></div>
+        <div class="hero-monogram">A<span>:</span>P</div>
+        <div class="hero-art-caption"><span>ANIME:P</span><small>ENTER THE MULTIVERSE</small></div>
       </div>
       <div class="hero-bottom-line"></div>
     </section>
@@ -62,7 +62,6 @@
     <section id="homeTrending" class="content-section">
       <div class="section-heading"><div><p class="section-eyebrow">THE COMMUNITY'S NEXT FAVORITES</p><h2>Explore anime <span class="heading-spark">✦</span></h2><p class="section-subtitle">A starter collection to help you find your next world.</p></div><button class="text-button" data-view="browse">View all <span>→</span></button></div>
       <div id="genreChips" class="genre-chips"></div>
-      <p id="catalogStatus" class="catalog-status" aria-live="polite">Loading anime details…</p>
       <div id="animeGrid" class="anime-grid"></div>
       <div id="emptyState" class="empty-state hidden"><div class="empty-icon">⌕</div><h3>No anime found</h3><p>Try another title or switch up your filters.</p><button class="btn btn-ghost" id="clearFilters">Clear filters</button></div>
     </section>
@@ -84,7 +83,7 @@
     </section>
   </main>
 
-  <footer class="footer"><a class="footer-brand" href="#">ANIME<span>:</span>P</a><p>Discover anime. Find official free streams and licensed viewing options.</p><div><a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube</a><span>•</span><button id="aboutButton">About Anime:P</button></div><small>Fan-made discovery interface. Metadata is supplied by Jikan/MyAnimeList. Anime:P does not host episodes. Availability and embedding permissions vary by region.</small></footer>
+  <footer class="footer"><a class="footer-brand" href="#">ANIME<span>:</span>P</a><p>Discover anime. Stream through authorized sources where available.</p><div><a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube</a><span>•</span><button id="aboutButton">About Anime:P</button></div><small>Fan-made discovery interface. Anime titles, artwork, and video rights belong to their respective owners. Availability and embedding permissions may vary by region.</small></footer>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
@@ -100,7 +99,7 @@
     <button class="dialog-close" data-close="aboutDialog" aria-label="Close">×</button>
     <p class="section-eyebrow">A LITTLE ABOUT US</p><h2>Anime:P</h2>
     <p>Anime:P is an independent anime discovery interface. It does not host or re-upload anime episodes. Video playback is provided by third-party sources only when an authorized embed is configured and available.</p>
-    <p>Anime metadata is provided by Jikan/MyAnimeList. Anime:P does not host or re-upload episodes. Only verified authorized embeds are played in-site; other sources open the provider directly. Availability varies by region.</p>
+    <p>Starter catalog entries are examples for the interface. Add official video IDs and verify regional availability before presenting an episode as playable.</p>
     <button class="btn btn-primary" data-close="aboutDialog">Got it</button>
   </dialog>
 </body>
