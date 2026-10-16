@@ -1,1160 +1,1031 @@
-:root {
-  --bg: #080b18;
-  --panel: #10162a;
-  --panel-2: #151d35;
-  --line: rgba(155, 177, 255, .13);
-  --text: #f3f5ff;
-  --muted: #919bb9;
-  --blue: #58a6ff;
-  --cyan: #65f2ff;
-  --violet: #9672ff;
-  --radius: 18px;
-  --shadow: 0 18px 55px rgba(0, 0, 0, .25);
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 90px;
-}
-
-body {
-  min-height: 100vh;
-  background: var(--bg);
-  color: var(--text);
-  font-family: Inter, system-ui, -apple-system, sans-serif;
-  line-height: 1.5;
-  overflow-x: hidden;
-}
-
-button,
-input,
-select {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-a:focus-visible {
-  outline: 2px solid var(--cyan);
-  outline-offset: 3px;
-}
-
-button:disabled {
-  cursor: not-allowed;
-  opacity: .6;
-}
-
-[hidden] {
-  display: none !important;
-}
-
-.ambient {
-  position: fixed;
-  width: 340px;
-  height: 340px;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: .1;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.ambient-one {
-  top: 90px;
-  left: -190px;
-  background: #496eff;
-}
-
-.ambient-two {
-  right: -200px;
-  top: 550px;
-  background: #8a4cff;
-}
-
-.topbar {
-  height: 76px;
-  padding: 0 5%;
-  display: flex;
-  align-items: center;
-  gap: 34px;
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: rgba(8, 11, 24, .88);
-  border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(20px);
-}
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  text-decoration: none;
-  color: var(--text);
-}
-
-.brand-mark,
-.footer-logo {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--blue), var(--violet));
-  color: #fff;
-  font-weight: 900;
-  font-size: 18px;
-  box-shadow: 0 0 22px rgba(88, 166, 255, .2);
-}
-
-.brand-name {
-  font-size: 15px;
-  font-weight: 900;
-  letter-spacing: 1.4px;
-}
-
-.brand-name span,
-.site-footer span:not(.footer-divider) {
-  color: var(--cyan);
-}
-
-.main-nav {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.nav-link {
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  padding: 10px 13px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 700;
-  transition: .2s;
-}
-
-.nav-link:hover,
-.nav-link.active {
-  color: var(--text);
-  background: rgba(112, 147, 255, .12);
-}
-
-.header-search {
-  margin-left: auto;
-  width: min(290px, 28vw);
-  min-width: 180px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  background: #11182b;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  color: var(--muted);
-}
-
-.header-search > span {
-  font-size: 25px;
-  line-height: 1;
-}
-
-.header-search input {
-  min-width: 0;
-  flex: 1;
-  background: transparent;
-  border: 0;
-  outline: 0;
-  color: var(--text);
-  font-size: 12px;
-}
-
-.header-search input::placeholder {
-  color: #7f89a8;
-}
-
-.header-search kbd {
-  font-size: 10px;
-  padding: 2px 5px;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-}
-
-.page-shell {
-  width: min(1600px, 92%);
-  margin: 0 auto;
-}
-
-.hero {
-  min-height: 350px;
-  margin: 32px 0 50px;
-  border: 1px solid rgba(124, 151, 255, .18);
-  border-radius: 28px;
-  background:
-    radial-gradient(ellipse at 75% 50%, rgba(81, 105, 255, .21), transparent 44%),
-    linear-gradient(120deg, #121a34, #0c1124 68%, #17102f);
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding: clamp(28px, 5vw, 65px);
-  box-shadow: var(--shadow);
-}
-
-.hero-content {
-  max-width: 570px;
-  position: relative;
-  z-index: 2;
-}
-
-.eyebrow,
-.section-kicker {
-  color: var(--cyan);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 2px;
-}
-
-.eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.live-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--cyan);
-  box-shadow: 0 0 12px var(--cyan);
-}
-
-.hero h1 {
-  margin: 19px 0 14px;
-  font-size: clamp(36px, 5vw, 66px);
-  line-height: 1.07;
-  letter-spacing: -3px;
-  font-weight: 900;
-}
-
-.hero h1 span {
-  background: linear-gradient(90deg, #7ebaff, #a894ff, #67efff);
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-}
-
-.hero-content > p {
-  max-width: 420px;
-  color: #aeb8d6;
-  font-size: 14px;
-  line-height: 1.8;
-}
-
-.hero-actions,
-.hero-meta,
-.detail-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
-}
-
-.hero-actions {
-  margin-top: 25px;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 43px;
-  padding: 11px 17px;
-  border: 1px solid transparent;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 800;
-  transition: transform .2s, box-shadow .2s, background .2s;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-}
-
-.btn-primary {
-  color: #07101d;
-  background: linear-gradient(100deg, var(--cyan), #7eb4ff);
-  box-shadow: 0 7px 24px rgba(79, 173, 255, .15);
-}
-
-.btn-primary:hover {
-  box-shadow: 0 8px 30px rgba(79, 173, 255, .28);
-}
-
-.btn-secondary {
-  color: var(--text);
-  background: rgba(255, 255, 255, .045);
-  border-color: var(--line);
-}
-
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, .09);
-}
-
-.hero-meta {
-  margin-top: 25px;
-  gap: 18px;
-  color: #919dbd;
-  font-size: 10px;
-  font-weight: 600;
-}
-
-.hero-art {
-  position: absolute;
-  width: 44%;
-  height: 100%;
-  right: 0;
-  top: 0;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(96, 114, 255, .1), transparent 65%);
-}
-
-.hero-orbit {
-  position: absolute;
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  border: 1px solid rgba(106, 168, 255, .24);
-  box-shadow: inset 0 0 60px rgba(98, 111, 255, .05), 0 0 70px rgba(98, 111, 255, .06);
-}
-
-.orbit-two {
-  width: 190px;
-  height: 310px;
-  transform: rotate(54deg);
-  border-color: rgba(124, 101, 255, .38);
-}
-
-.hero-symbol {
-  font-size: clamp(100px, 16vw, 200px);
-  line-height: 1;
-  font-weight: 900;
-  color: transparent;
-  -webkit-text-stroke: 2px rgba(110, 215, 255, .6);
-  text-shadow: 0 0 45px rgba(97, 146, 255, .2);
-  transform: rotate(-9deg);
-}
-
-.hero-chip {
-  position: absolute;
-  padding: 8px 11px;
-  border-radius: 8px;
-  background: rgba(15, 23, 49, .9);
-  border: 1px solid rgba(140, 170, 255, .2);
-  color: #b4c8ff;
-  font-size: 8px;
-  font-weight: 800;
-  letter-spacing: 1px;
-}
-
-.chip-top {
-  top: 27%;
-  right: 11%;
-}
-
-.chip-bottom {
-  bottom: 21%;
-  left: 10%;
-}
-
-.section {
-  margin: 0 0 54px;
-  scroll-margin-top: 95px;
-}
-
-.section-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 20px;
-  margin-bottom: 21px;
-}
-
-.section-heading h2 {
-  margin-top: 6px;
-  font-size: clamp(22px, 3vw, 29px);
-  line-height: 1.3;
-  font-weight: 850;
-  letter-spacing: -.8px;
-}
-
-.heading-icon {
-  color: var(--cyan);
-  font-size: .8em;
-}
-
-.section-description {
-  margin-top: 6px;
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.catalog-tools {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.result-count {
-  color: var(--muted);
-  font-size: 11px;
-  white-space: nowrap;
-}
-
-.catalog-tools select {
-  background: var(--panel);
-  color: var(--text);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 9px 11px;
-  max-width: 155px;
-  font-size: 11px;
-}
-
-.text-button {
-  border: 0;
-  background: transparent;
-  color: var(--cyan);
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.genre-bar {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding: 2px 2px 13px;
-  margin-bottom: 14px;
-  scrollbar-width: thin;
-  scrollbar-color: #293657 transparent;
-}
-
-.genre-chip {
-  flex-shrink: 0;
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: #10162a;
-  color: #a6b0cb;
-  border: 1px solid var(--line);
-  font-size: 10px;
-  font-weight: 700;
-  transition: .2s;
-}
-
-.genre-chip:hover,
-.genre-chip.active {
-  color: #07101d;
-  background: var(--cyan);
-  border-color: var(--cyan);
-}
-
-.anime-grid {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 23px 16px;
-}
-
-.anime-card {
-  min-width: 0;
-  position: relative;
-  animation: card-in .35s ease both;
-}
-
-@keyframes card-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.poster-wrap {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 3 / 4.2;
-  overflow: hidden;
-  border-radius: 14px;
-  background: linear-gradient(145deg, #1b2850, #101425 60%, #26204a);
-  border: 1px solid rgba(151, 175, 255, .12);
-  cursor: pointer;
-}
-
-.poster-wrap::after {
-  content: "";
-  position: absolute;
-  inset: 40% 0 0;
-  background: linear-gradient(transparent, rgba(4, 7, 16, .45));
-  pointer-events: none;
-}
-
-.poster-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform .4s;
-}
-
-.anime-card:hover .poster-image {
-  transform: scale(1.055);
-}
-
-.poster-fallback {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  padding: 16px;
-  color: #b6c9ff;
-  font-weight: 800;
-  font-size: 14px;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(101, 242, 255, .18), transparent 38%),
-    linear-gradient(145deg, #1b2850, #101425 60%, #26204a);
-}
-
-.score-badge {
-  position: absolute;
-  z-index: 2;
-  top: 9px;
-  left: 9px;
-  padding: 5px 7px;
-  border-radius: 7px;
-  color: #08121f;
-  background: rgba(112, 242, 255, .95);
-  font-size: 10px;
-  font-weight: 900;
-}
-
-.card-heart {
-  position: absolute;
-  z-index: 3;
-  top: 8px;
-  right: 8px;
-  display: grid;
-  place-items: center;
-  width: 31px;
-  height: 31px;
-  border-radius: 50%;
-  background: rgba(6, 10, 24, .78);
-  border: 1px solid rgba(255, 255, 255, .17);
-  color: white;
-  font-size: 16px;
-  backdrop-filter: blur(8px);
-}
-
-.card-heart.saved {
-  color: #ff7ab6;
-  background: rgba(65, 17, 49, .92);
-}
-
-.card-open {
-  position: absolute;
-  z-index: 2;
-  bottom: 9px;
-  right: 9px;
-  width: 31px;
-  height: 31px;
-  border: 0;
-  border-radius: 50%;
-  background: var(--cyan);
-  color: #06101c;
-  font-size: 17px;
-  font-weight: 900;
-  opacity: 0;
-  transform: translateY(5px);
-  transition: .2s;
-}
-
-.anime-card:hover .card-open,
-.card-open:focus-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.card-info {
-  padding: 10px 2px 0;
-}
-
-.card-title {
-  font-size: 12px;
-  font-weight: 800;
-  line-height: 1.45;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.card-title:hover {
-  color: var(--cyan);
-}
-
-.card-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  align-items: center;
-  margin-top: 6px;
-  color: var(--muted);
-  font-size: 10px;
-}
-
-.card-meta .dot {
-  color: #566486;
-}
-
-.card-progress {
-  height: 3px;
-  margin-top: 10px;
-  border-radius: 99px;
-  background: #26314d;
-  overflow: hidden;
-}
-
-.card-progress span {
-  display: block;
-  height: 100%;
-  width: 45%;
-  background: linear-gradient(90deg, var(--blue), var(--cyan));
-}
-
-.card-remove {
-  margin-top: 9px;
-  padding: 5px 0;
-  border: 0;
-  background: transparent;
-  color: #ff91b8;
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.load-more-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 13px;
-  margin: 36px 0 0;
-  text-align: center;
-}
-
-.load-more-wrap p {
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.load-more-wrap .btn {
-  min-width: 190px;
-}
-
-.status-message {
-  margin: 0 0 20px;
-  padding: 12px 15px;
-  border-radius: 12px;
-  color: #c3d8ff;
-  background: rgba(87, 136, 255, .09);
-  border: 1px solid rgba(87, 136, 255, .17);
-  font-size: 12px;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 55px 18px;
-  border: 1px dashed rgba(151, 175, 255, .2);
-  border-radius: 18px;
-  background: rgba(17, 23, 43, .5);
-}
-
-.empty-icon {
-  margin-bottom: 10px;
-  color: var(--cyan);
-  font-size: 35px;
-}
-
-.empty-state h3 {
-  font-size: 17px;
-}
-
-.empty-state p {
-  margin: 8px 0 18px;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.footer-note {
-  margin: 65px 0 28px;
-  padding: 22px 0;
-  border-top: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  gap: 13px;
-}
-
-.footer-logo {
-  width: 32px;
-  height: 32px;
-  font-size: 14px;
-  flex-shrink: 0;
-}
-
-.footer-note p {
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.api-note {
-  margin-left: auto;
-  color: #6f7b9a;
-  font-size: 9px;
-  text-align: right;
-}
-
-.site-footer {
-  border-top: 1px solid var(--line);
-  padding: 19px 5%;
-  text-align: center;
-  color: #73809f;
-  font-size: 10px;
-  letter-spacing: .6px;
-}
-
-.footer-divider {
-  padding: 0 6px;
-  color: #3c4968;
-}
-
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  padding: 24px;
-  display: grid;
-  place-items: center;
-  background: rgba(3, 5, 13, .82);
-  backdrop-filter: blur(12px);
-  overflow-y: auto;
-}
-
-.detail-modal {
-  position: relative;
-  width: min(900px, 100%);
-  max-height: 92vh;
-  overflow-y: auto;
-  border: 1px solid rgba(143, 169, 255, .2);
-  border-radius: 22px;
-  background: #0e1427;
-  box-shadow: 0 25px 100px rgba(0, 0, 0, .5);
-}
-
-.modal-close {
-  position: sticky;
-  float: right;
-  top: 12px;
-  right: 12px;
-  z-index: 5;
-  width: 36px;
-  height: 36px;
-  margin: 12px 12px -48px 0;
-  border: 1px solid rgba(255, 255, 255, .2);
-  border-radius: 50%;
-  background: rgba(6, 9, 20, .85);
-  color: white;
-  font-size: 23px;
-}
-
-.detail-banner {
-  height: 170px;
-  background:
-    radial-gradient(ellipse at 70% 10%, rgba(95, 132, 255, .4), transparent 45%),
-    linear-gradient(130deg, #1d2b52, #15142f, #101426);
-  background-position: center;
-  background-size: cover;
-}
-
-.detail-body {
-  display: grid;
-  grid-template-columns: 190px minmax(0, 1fr);
-  gap: 25px;
-  padding: 0 28px 30px;
-}
-
-.detail-poster-wrap {
-  margin-top: -80px;
-  position: relative;
-  z-index: 2;
-}
-
-.detail-poster {
-  display: block;
-  width: 100%;
-  aspect-ratio: 3 / 4.2;
-  object-fit: cover;
-  border-radius: 13px;
-  background: #182341;
-  border: 2px solid #252f50;
-}
-
-.detail-copy {
-  padding-top: 20px;
-  min-width: 0;
-}
-
-.detail-copy h2 {
-  margin: 5px 0 10px;
-  font-size: clamp(22px, 4vw, 32px);
-  line-height: 1.2;
-}
-
-.detail-stats,
-.detail-genres {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.detail-stats span,
-.detail-genres span {
-  padding: 5px 8px;
-  border-radius: 7px;
-  background: #18213b;
-  color: #c1cce8;
-  font-size: 10px;
-}
-
-.detail-genres {
-  margin-top: 10px;
-}
-
-.detail-genres span {
-  background: rgba(87, 174, 255, .1);
-  color: #9edbff;
-}
-
-.detail-synopsis {
-  margin: 17px 0;
-  color: #abb6d1;
-  font-size: 12px;
-  line-height: 1.8;
-  white-space: pre-line;
-}
-
-.detail-actions {
-  margin: 18px 0 25px;
-}
-
-.official-panel {
-  border-top: 1px solid var(--line);
-  padding-top: 20px;
-}
-
-.official-panel h3 {
-  margin-bottom: 7px;
-  font-size: 14px;
-}
-
-.official-panel > p {
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.7;
-}
-
-.official-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
-  margin: 13px 0;
-}
-
-.official-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 12px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  color: #c8d8ff;
-  background: #141c33;
-  text-decoration: none;
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.official-link:hover {
-  border-color: var(--cyan);
-  color: var(--cyan);
-}
-
-.official-panel .fine-print {
-  margin-top: 13px;
-  font-size: 10px;
-  color: #7583a3;
-}
-
-.toast {
-  position: fixed;
-  z-index: 100;
-  left: 50%;
-  bottom: 25px;
-  transform: translate(-50%, 20px);
-  opacity: 0;
-  pointer-events: none;
-  max-width: calc(100% - 30px);
-  padding: 12px 17px;
-  border: 1px solid rgba(101, 242, 255, .28);
-  border-radius: 12px;
-  background: #141f38;
-  color: var(--text);
-  font-size: 12px;
-  box-shadow: var(--shadow);
-  transition: .25s;
-}
-
-.toast.show {
-  opacity: 1;
-  transform: translate(-50%, 0);
-}
-
-@media (max-width: 1200px) {
-  .anime-grid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+/* =========================================================
+   ANIME:P — COMPLETE FRONTEND
+   Anime catalogue: Jikan API
+   Storage: browser localStorage
+   Streaming: official provider links only
+========================================================= */
+
+const API_BASE = "https://api.jikan.moe/v4";
+const PAGE_SIZE = 24;
+
+const $ = (selector) => document.querySelector(selector);
+const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+let animeCatalog = [];
+let searchResults = null;
+let activeGenre = "All";
+let currentView = "home";
+let currentAnime = null;
+
+let catalogPage = 1;
+let searchPage = 1;
+let hasMoreCatalog = true;
+let hasMoreSearch = false;
+let isLoadingMore = false;
+let searchTimer = null;
+let toastTimer = null;
+let lastApiRequest = 0;
+
+const GENRES = [
+  "All",
+  "Action",
+  "Adventure",
+  "Comedy",
+  "Drama",
+  "Fantasy",
+  "Romance",
+  "Sci-Fi",
+  "Mystery",
+  "Sports",
+  "Horror",
+  "Slice of Life",
+  "Supernatural"
+];
+
+const GENRE_ALIASES = {
+  "Sci-Fi": ["Sci-Fi", "Science Fiction"],
+  "Slice of Life": ["Slice of Life"]
+};
+
+const OFFICIAL_PROVIDERS = [
+  {
+    name: "Crunchyroll",
+    description: "Check official availability",
+    url: "https://www.crunchyroll.com/"
+  },
+  {
+    name: "Netflix",
+    description: "Browse anime",
+    url: "https://www.netflix.com/browse/genre/7424"
+  },
+  {
+    name: "Muse Asia",
+    description: "Official anime channel",
+    url: "https://www.youtube.com/@MuseAsia"
+  },
+  {
+    name: "Ani-One Asia",
+    description: "Official anime channel",
+    url: "https://www.youtube.com/@AniOneAsia"
   }
+];
 
-  .topbar {
-    gap: 20px;
+function readStorage(key, fallback = []) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key));
+    return value ?? fallback;
+  } catch {
+    return fallback;
   }
 }
 
-@media (max-width: 950px) {
-  .anime-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .hero-art {
-    opacity: .65;
-    width: 40%;
-  }
-
-  .main-nav {
-    gap: 0;
-  }
-
-  .nav-link {
-    padding: 9px;
+function writeStorage(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    showToast("Browser storage is unavailable.");
   }
 }
 
-@media (max-width: 700px) {
-  .topbar {
-    height: auto;
-    min-height: 70px;
-    padding: 12px 4%;
-    flex-wrap: wrap;
-    gap: 10px;
+function getWatchlist() {
+  return readStorage("animep_watchlist", []);
+}
+
+function getHistory() {
+  return readStorage("animep_history", []);
+}
+
+function normalizeAnime(item) {
+  const images = item.images || {};
+  const image =
+    images.webp?.large_image_url ||
+    images.jpg?.large_image_url ||
+    images.webp?.image_url ||
+    images.jpg?.image_url ||
+    "";
+
+  return {
+    id: Number(item.mal_id),
+    title: item.title_english || item.title || "Untitled Anime",
+    originalTitle: item.title || "",
+    image,
+    score: Number(item.score) || 0,
+    year: item.year || item.aired?.prop?.from?.year || null,
+    episodes: item.episodes ?? null,
+    type: item.type || "Anime",
+    status: item.status || "",
+    synopsis: item.synopsis || "No synopsis is available for this title yet.",
+    genres: (item.genres || []).map((genre) => genre.name),
+    studios: (item.studios || []).map((studio) => studio.name),
+    url: item.url || "",
+    rating: item.rating || "",
+    season: item.season || "",
+    source: item.source || ""
+  };
+}
+
+function mergeCatalog(items) {
+  const existing = new Map(animeCatalog.map((anime) => [anime.id, anime]));
+
+  for (const item of items) {
+    const anime = normalizeAnime(item);
+
+    if (anime.id) {
+      existing.set(anime.id, {
+        ...existing.get(anime.id),
+        ...anime
+      });
+    }
   }
 
-  .brand-mark {
-    width: 34px;
-    height: 34px;
+  animeCatalog = [...existing.values()];
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (character) => {
+    const entities = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    };
+
+    return entities[character];
+  });
+}
+
+function formatNumber(number) {
+  return new Intl.NumberFormat().format(number);
+}
+
+function showToast(message) {
+  const toast = $("#toast");
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2400);
+}
+
+function setStatus(message, visible = true) {
+  const status = $("#statusMessage");
+  if (!status) return;
+
+  status.textContent = message;
+  status.hidden = !visible;
+}
+
+async function fetchJSON(url) {
+  // Avoid sending requests too quickly to the public API.
+  const elapsed = Date.now() - lastApiRequest;
+  const minimumGap = 400;
+
+  if (elapsed < minimumGap) {
+    await new Promise((resolve) =>
+      setTimeout(resolve, minimumGap - elapsed)
+    );
   }
 
-  .main-nav {
-    order: 3;
-    width: 100%;
-    justify-content: space-between;
+  lastApiRequest = Date.now();
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    if (response.status === 429) {
+      throw new Error("The anime database is busy. Wait a moment and try again.");
+    }
+
+    throw new Error("Could not load anime right now. Please try again.");
   }
 
-  .nav-link {
-    flex: 1;
-    font-size: 11px;
+  return response.json();
+}
+
+function filteredAnime(source = null) {
+  let list = source || searchResults || animeCatalog;
+
+  if (activeGenre !== "All") {
+    const aliases = GENRE_ALIASES[activeGenre] || [activeGenre];
+
+    list = list.filter((anime) =>
+      anime.genres.some((genre) =>
+        aliases.some((alias) =>
+          genre.toLowerCase().includes(alias.toLowerCase())
+        )
+      )
+    );
   }
 
-  .header-search {
-    width: auto;
-    min-width: 0;
-    flex: 1;
+  const sortMode = $("#sortSelect")?.value || "popular";
+
+  list = [...list];
+
+  if (sortMode === "score") {
+    list.sort((a, b) => b.score - a.score);
+  } else if (sortMode === "title") {
+    list.sort((a, b) => a.title.localeCompare(b.title));
+  } else {
+    list.sort((a, b) => {
+      const scoreDifference = b.score - a.score;
+      if (scoreDifference !== 0) return scoreDifference;
+      return a.title.localeCompare(b.title);
+    });
   }
 
-  .header-search kbd {
-    display: none;
+  return list;
+}
+
+function getGenreButtons() {
+  return GENRES.map((genre) => `
+    <button
+      class="genre-chip ${activeGenre === genre ? "active" : ""}"
+      data-genre="${escapeHTML(genre)}"
+      type="button"
+    >${escapeHTML(genre)}</button>
+  `).join("");
+}
+
+function renderGenres() {
+  const bar = $("#genreBar");
+  if (!bar) return;
+
+  bar.innerHTML = getGenreButtons();
+
+  $$("#genreBar [data-genre]").forEach((button) => {
+    button.addEventListener("click", () => {
+      activeGenre = button.dataset.genre || "All";
+      renderCatalog();
+    });
+  });
+}
+
+function posterMarkup(anime) {
+  const title = escapeHTML(anime.title);
+  const image = escapeHTML(anime.image);
+
+  return `
+    <div class="poster-wrap" data-open-anime="${anime.id}" tabindex="0" role="button" aria-label="View ${title}">
+      ${image ? `
+        <img
+          class="poster-image"
+          src="${image}"
+          alt="${title} poster"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"
+        >
+      ` : ""}
+
+      <div class="poster-fallback" style="display:${image ? "none" : "grid"}">
+        ${title}
+      </div>
+
+      <span class="score-badge">★ ${anime.score ? anime.score.toFixed(1) : "N/A"}</span>
+
+      <button
+        class="card-heart ${getWatchlist().includes(anime.id) ? "saved" : ""}"
+        type="button"
+        data-toggle-watchlist="${anime.id}"
+        aria-label="Toggle ${title} in watchlist"
+        title="Add or remove from watchlist"
+      >${getWatchlist().includes(anime.id) ? "♥" : "♡"}</button>
+
+      <button
+        class="card-open"
+        type="button"
+        data-open-anime="${anime.id}"
+        aria-label="Open ${title}"
+      >↗</button>
+    </div>
+  `;
+}
+
+function cardMarkup(anime, options = {}) {
+  const isHistory = options.history === true;
+  const year = anime.year || "Year unknown";
+  const episodes = anime.episodes ? `${anime.episodes} eps` : "Episodes TBA";
+
+  return `
+    <article class="anime-card" data-card-id="${anime.id}">
+      ${posterMarkup(anime)}
+
+      <div class="card-info">
+        <h3 class="card-title" data-open-anime="${anime.id}" tabindex="0">
+          ${escapeHTML(anime.title)}
+        </h3>
+
+        <div class="card-meta">
+          <span>${escapeHTML(String(year))}</span>
+          <span class="dot">•</span>
+          <span>${escapeHTML(anime.type)}</span>
+        </div>
+
+        <div class="card-meta">
+          <span>${escapeHTML(episodes)}</span>
+          ${anime.genres[0] ? `
+            <span class="dot">•</span>
+            <span>${escapeHTML(anime.genres[0])}</span>
+          ` : ""}
+        </div>
+
+        ${isHistory ? `
+          <div class="card-progress"><span></span></div>
+          <button class="card-remove" data-remove-history="${anime.id}" type="button">
+            ✕ Remove from history
+          </button>
+        ` : ""}
+      </div>
+    </article>
+  `;
+}
+
+function renderCards(containerSelector, list, emptySelector, options = {}) {
+  const container = $(containerSelector);
+  const empty = $(emptySelector);
+
+  if (!container) return;
+
+  if (!list.length) {
+    container.innerHTML = "";
+    if (empty) empty.hidden = false;
+    return;
   }
 
-  .page-shell {
-    width: 92%;
+  if (empty) empty.hidden = true;
+
+  container.innerHTML = list
+    .map((anime) => cardMarkup(anime, options))
+    .join("");
+}
+
+function updateLoadMoreUI(displayedCount, totalCount) {
+  const wrap = $("#loadMoreWrap");
+  const button = $("#loadMoreButton");
+  const status = $("#loadMoreStatus");
+
+  if (!wrap || !button || !status) return;
+
+  const isSearching = Boolean(searchResults);
+
+  const hasMore = isSearching ? hasMoreSearch : hasMoreCatalog;
+
+  // With search results, the API has its own pagination.
+  // With the popular catalogue, the API has its own pagination too.
+  wrap.hidden = !hasMore && totalCount > 0;
+
+  if (isLoadingMore) {
+    button.disabled = true;
+    button.textContent = "Loading anime...";
+    status.textContent = "Fetching more titles. One moment!";
+    return;
   }
 
-  .hero {
-    min-height: 355px;
-    margin-top: 20px;
-    padding: 28px 22px;
+  button.disabled = !hasMore;
+  button.innerHTML = hasMore
+    ? 'Load More Anime <span>↓</span>'
+    : "All available results loaded";
+
+  status.textContent = `${formatNumber(totalCount)} anime currently available in this view.`;
+}
+
+function renderCatalog() {
+  renderGenres();
+
+  const allMatches = filteredAnime();
+
+  renderCards("#animeGrid", allMatches, "#emptyState");
+
+  const resultsCount = $("#resultsCount");
+  if (resultsCount) {
+    resultsCount.textContent = `${formatNumber(allMatches.length)} anime shown`;
   }
 
-  .hero h1 {
-    letter-spacing: -1.8px;
+  const heading = $("#catalogHeading");
+  const description = $("#catalogDescription");
+
+  if (heading) {
+    heading.innerHTML = searchResults
+      ? 'Search results <span class="heading-icon">⌕</span>'
+      : currentView === "browse"
+        ? 'Explore anime <span class="heading-icon">✦</span>'
+        : 'Popular anime <span class="heading-icon">✦</span>';
   }
 
-  .hero-art {
-    width: 50%;
-    opacity: .2;
+  if (description) {
+    description.textContent = searchResults
+      ? "Titles matching your search."
+      : "Stories worth getting lost in.";
   }
 
-  .hero-meta {
-    gap: 10px;
-  }
+  const total = searchResults
+    ? searchResults.length
+    : animeCatalog.length;
 
-  .section-heading {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 13px;
-  }
+  updateLoadMoreUI(allMatches.length, total);
+}
 
-  .catalog-tools {
-    width: 100%;
-    justify-content: space-between;
-  }
+function renderContinueWatching() {
+  const history = getHistory();
+  const section = $("#continueSection");
 
-  .anime-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 19px 11px;
-  }
+  if (!section) return;
 
-  .card-title {
-    font-size: 11px;
-  }
+  section.hidden = history.length === 0;
 
-  .card-meta {
-    font-size: 9px;
-  }
+  const historyAnime = history
+    .map((entry) => {
+      const found = animeCatalog.find((anime) => anime.id === entry.id);
+      return found || entry;
+    })
+    .slice(0, 12);
 
-  .card-open {
-    opacity: 1;
-    transform: none;
-    width: 28px;
-    height: 28px;
-  }
+  renderCards(
+    "#continueGrid",
+    historyAnime,
+    null,
+    { history: true }
+  );
+}
 
-  .footer-note {
-    flex-wrap: wrap;
-  }
+function renderWatchlist() {
+  const savedIDs = getWatchlist();
 
-  .api-note {
-    width: 100%;
-    margin-left: 45px;
-    text-align: left;
-  }
+  const savedAnime = savedIDs.map((id) => {
+    const found = animeCatalog.find((anime) => anime.id === id);
 
-  .detail-body {
-    grid-template-columns: 105px minmax(0, 1fr);
-    gap: 15px;
-    padding: 0 16px 23px;
-  }
+    if (found) return found;
 
-  .detail-poster-wrap {
-    margin-top: -48px;
-  }
+    return {
+      id,
+      title: `Anime #${id}`,
+      image: "",
+      score: 0,
+      year: null,
+      episodes: null,
+      type: "Anime",
+      genres: [],
+      synopsis: "Open the details to explore this title."
+    };
+  });
 
-  .detail-banner {
-    height: 130px;
-  }
+  renderCards("#watchlistGrid", savedAnime, "#watchlistEmpty");
+}
 
-  .detail-copy {
-    padding-top: 14px;
-  }
+function setView(view) {
+  currentView = view;
 
-  .detail-copy h2 {
-    font-size: 21px;
-  }
+  const home = view === "home";
+  const browse = view === "browse";
+  const watchlist = view === "watchlist";
 
-  .detail-actions {
-    gap: 8px;
-  }
+  $("#heroSection").hidden = !home;
+  $("#homeTrending").hidden = watchlist;
+  $("#watchlistSection").hidden = !watchlist;
 
-  .detail-actions .btn {
-    padding: 10px;
-    font-size: 10px;
-  }
+  $$(".nav-link").forEach((button) => {
+    button.classList.toggle("active", button.dataset.view === view);
+  });
 
-  .modal-backdrop {
-    padding: 10px;
+  if (watchlist) {
+    renderWatchlist();
+  } else {
+    renderCatalog();
+
+    if (browse) {
+      $("#homeTrending")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else if (home) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }
 }
 
-@media (max-width: 430px) {
-  .anime-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px 13px;
+function toggleWatchlist(id) {
+  const saved = getWatchlist();
+  const exists = saved.includes(id);
+
+  const updated = exists
+    ? saved.filter((savedID) => savedID !== id)
+    : [...saved, id];
+
+  writeStorage("animep_watchlist", updated);
+
+  renderCatalog();
+  renderWatchlist();
+
+  if (currentAnime?.id === id) {
+    updateDetailSaveButton();
   }
 
-  .hero {
-    min-height: 370px;
-  }
+  showToast(exists ? "Removed from your watchlist." : "Added to your watchlist ♡");
+}
 
-  .hero-content > p {
-    max-width: 290px;
-    font-size: 12px;
-  }
+function addToHistory(anime) {
+  if (!anime?.id) return;
 
-  .hero-actions .btn {
-    padding: 10px 12px;
-    font-size: 10px;
-  }
+  const history = getHistory().filter((item) => item.id !== anime.id);
 
-  .result-count {
-    font-size: 10px;
-  }
+  history.unshift({
+    ...anime,
+    lastOpened: new Date().toISOString()
+  });
 
-  .detail-body {
-    grid-template-columns: 1fr;
-  }
+  writeStorage("animep_history", history.slice(0, 30));
+  renderContinueWatching();
+}
 
-  .detail-poster-wrap {
-    display: none;
-  }
+function removeFromHistory(id) {
+  const history = getHistory().filter((item) => item.id !== id);
 
-  .detail-copy {
-    padding-top: 0;
-  }
+  writeStorage("animep_history", history);
+  renderContinueWatching();
 
-  .detail-banner {
-    height: 95px;
-  }
+  showToast("Removed from Continue Watching.");
+}
 
-  .footer-note p {
-    flex: 1;
+function clearHistory() {
+  writeStorage("animep_history", []);
+  renderContinueWatching();
+  showToast("Continue Watching cleared.");
+}
+
+function findAnime(id) {
+  return animeCatalog.find((anime) => anime.id === Number(id))
+    || searchResults?.find((anime) => anime.id === Number(id))
+    || getHistory().find((anime) => anime.id === Number(id))
+    || null;
+}
+
+function updateDetailSaveButton() {
+  const button = $("#detailSaveButton");
+  if (!button || !currentAnime) return;
+
+  const saved = getWatchlist().includes(currentAnime.id);
+
+  button.textContent = saved
+    ? "♥ Remove from watchlist"
+    : "♡ Add to watchlist";
+}
+
+function renderOfficialLinks(anime) {
+  const links = $("#officialLinks");
+  if (!links) return;
+
+  const title = anime.title;
+
+  const officialSearches = [
+    {
+      name: "Crunchyroll",
+      description: "Check this title",
+      url: `https://www.crunchyroll.com/search?q=${encodeURIComponent(title)}`
+    },
+    {
+      name: "Netflix",
+      description: "Search Netflix",
+      url: `https://www.netflix.com/search?q=${encodeURIComponent(title)}`
+    },
+    {
+      name: "YouTube",
+      description: "Look for official uploads",
+      url: `https://www.youtube.com/results?search_query=${encodeURIComponent(title + " official anime")}`
+    },
+    {
+      name: "MyAnimeList",
+      description: "Anime information",
+      url: anime.url || `https://myanimelist.net/anime/${anime.id}`
+    }
+  ];
+
+  links.innerHTML = officialSearches.map((provider) => `
+    <a
+      class="official-link"
+      href="${escapeHTML(provider.url)}"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span>↗</span>
+      <span>
+        ${escapeHTML(provider.name)}
+        <small style="display:block;color:#8492b5;font-weight:500;margin-top:2px">
+          ${escapeHTML(provider.description)}
+        </small>
+      </span>
+    </a>
+  `).join("");
+}
+
+async function loadEpisodeInfo(anime) {
+  const info = $("#episodeInfo");
+  if (!info) return;
+
+  info.textContent = anime.episodes
+    ? `This series is listed with ${anime.episodes} episode${anime.episodes === 1 ? "" : "s"}. Episode listings may vary by season and release.`
+    : "The total episode count is not currently listed.";
+
+  // Episode metadata is informational only; it is not a video stream.
+  try {
+    const result = await fetchJSON(
+      `${API_BASE}/anime/${anime.id}/episodes?page=1`
+    );
+
+    if (currentAnime?.id !== anime.id) return;
+
+    const episodes = result.data || [];
+
+    if (episodes.length) {
+      const names = episodes
+        .slice(0, 5)
+        .map((episode) => {
+          const number = episode.mal_id ?? "?";
+          const title = episode.title || "Episode title unavailable";
+          return `Episode ${number}: ${title}`;
+        });
+
+      info.textContent =
+        `${anime.episodes || result.pagination?.items?.total || "Listed"} total episode count where available. First listed episodes: ${names.join(" • ")}. Check official providers for playback.`;
+    }
+  } catch {
+    // Keep the basic episode information if the API request fails.
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: .01ms !important;
-    transition-duration: .01ms !important;
+function openDetails(id) {
+  const anime = findAnime(id);
+
+  if (!anime) {
+    showToast("Anime details are not available yet.");
+    return;
+  }
+
+  currentAnime = anime;
+  addToHistory(anime);
+
+  $("#detailTitle").textContent = anime.title;
+  $("#detailType").textContent = anime.type.toUpperCase();
+
+  const poster = $("#detailPoster");
+  poster.alt = `${anime.title} poster`;
+
+  if (anime.image) {
+    poster.src = anime.image;
+    poster.style.visibility = "visible";
+    poster.onerror = () => {
+      poster.style.visibility = "hidden";
+    };
+  } else {
+    poster.removeAttribute("src");
+    poster.style.visibility = "hidden";
+  }
+
+  const banner = $("#detailBanner");
+
+  banner.style.backgroundImage = anime.image
+    ? `linear-gradient(90deg, rgba(10,15,31,.65), rgba(10,15,31,.1)), url("${anime.image.replace(/["\\]/g, "")}")`
+    : "";
+
+  const stats = [
+    `★ ${anime.score ? anime.score.toFixed(2) : "Not rated"}`,
+    anime.year || "Year unknown",
+    anime.type,
+    anime.episodes ? `${anime.episodes} episodes` : "Episode count unknown"
+  ];
+
+  $("#detailStats").innerHTML = stats
+    .map((stat) => `<span>${escapeHTML(stat)}</span>`)
+    .join("");
+
+  $("#detailGenres").innerHTML = anime.genres.length
+    ? anime.genres.map((genre) =>
+        `<span>${escapeHTML(genre)}</span>`
+      ).join("")
+    : "<span>Genres unavailable</span>";
+
+  $("#detailSynopsis").textContent = anime.synopsis;
+  $("#detailModal").hidden = false;
+  document.body.style.overflow = "hidden";
+
+  updateDetailSaveButton();
+  renderOfficialLinks(anime);
+  loadEpisodeInfo(anime);
+}
+
+function closeDetails() {
+  $("#detailModal").hidden = true;
+  document.body.style.overflow = "";
+  currentAnime = null;
+}
+
+async function loadInitialCatalog() {
+  setStatus("Loading popular anime from the database...");
+
+  try {
+    const result = await fetchJSON(
+      `${API_BASE}/top/anime?filter=bypopularity&limit=${PAGE_SIZE}&page=1&sfw=true`
+    );
+
+    const items = result.data || [];
+
+    mergeCatalog(items);
+    catalogPage = 1;
+    hasMoreCatalog = Boolean(result.pagination?.has_next_page);
+
+    setStatus("", false);
+    renderCatalog();
+    renderContinueWatching();
+    renderWatchlist();
+
+    if (!items.length) {
+      setStatus("The anime database returned no titles. Try again shortly.");
+    }
+  } catch (error) {
+    setStatus(
+      `${error.message} Check your internet connection, then try loading again.`
+    );
+
+    $("#loadMoreStatus").textContent =
+      "The anime catalogue could not be reached.";
   }
 }
+
+async function loadMoreAnime() {
+  if (isLoadingMore) return;
+
+  const isSearching = Boolean(searchResults);
+
+  if (isSearching && !hasMoreSearch) return;
+  if (!isSearching && !hasMoreCatalog) return;
+
+  isLoadingMore = true;
+  updateLoadMoreUI(0, animeCatalog.length);
+
+  try {
+    if (isSearching) {
+      const nextPage = searchPage + 1;
+      const query = $("#searchInput").value.trim();
+
+      const result = await fetchJSON(
+        `${API_BASE}/anime?q=${encodeURIComponent(query)}&limit=${PAGE_SIZE}&page=${nextPage}&sfw=true`
+      );
+
+      const items = (result.data || []).map(normalizeAnime);
+
+      const combined = new Map(
+        (searchResults || []).map((anime) => [anime.id, anime])
+      );
+
+      items.forEach((anime) => combined.set(anime.id, anime));
+
+      searchResults = [...combined.values()];
+      searchPage = nextPage;
+      hasMoreSearch = Boolean(result.pagination?.has_next_page);
+
+      mergeCatalog(result.data || []);
+    } else {
+      const nextPage = catalogPage + 1;
+
+      const result = await fetchJSON(
+        `${API_BASE}/top/anime?filter=bypopularity&limit=${PAGE_SIZE}&page=${nextPage}&sfw=true`
+      );
+
+      const items = result.data || [];
+
+      if (!items.length) {
+        hasMoreCatalog = false;
+      } else {
+        mergeCatalog(items);
+        catalogPage = nextPage;
+        hasMoreCatalog = Boolean(result.pagination?.has_next_page);
+      }
+    }
+
+    setStatus("", false);
+    renderCatalog();
+    renderContinueWatching();
+    renderWatchlist();
+  } catch (error) {
+    showToast(error.message);
+  } finally {
+    isLoadingMore = false;
+    renderCatalog();
+  }
+}
+
+async function performSearch(query) {
+  const cleanQuery = query.trim();
+
+  clearTimeout(searchTimer);
+
+  if (!cleanQuery) {
+    searchResults = null;
+    searchPage = 1;
+    hasMoreSearch = false;
+    activeGenre = "All";
+    renderCatalog();
+    return;
+  }
+
+  setStatus(`Searching for "${cleanQuery}"...`);
+  $("#loadMoreButton").disabled = true;
+
+  try {
+    const result = await fetchJSON(
+      `${API_BASE}/anime?q=${encodeURIComponent(cleanQuery)}&limit=${PAGE_SIZE}&page=1&sfw=true`
+    );
+
+    // Ignore the response if the user has already changed the search.
+    if ($("#searchInput").value.trim() !== cleanQuery) return;
+
+    searchResults = (result.data || []).map(normalizeAnime);
+    searchPage = 1;
+    hasMoreSearch = Boolean(result.pagination?.has_next_page);
+    activeGenre = "All";
+
+    mergeCatalog(result.data || []);
+
+    setStatus("", false);
+    renderCatalog();
+
+    if (!searchResults.length) {
+      showToast("No matching anime found.");
+    }
+  } catch (error) {
+    setStatus(error.message);
+  }
+}
+
+function surpriseMe() {
+  const candidates = filteredAnime();
+
+  if (!candidates.length) {
+    showToast("Load some anime first, then try again.");
+    return;
+  }
+
+  const randomIndex = Math.floor(Math.random() * candidates.length);
+  openDetails(candidates[randomIndex].id);
+}
+
+function resetFilters() {
+  activeGenre = "All";
+  $("#searchInput").value = "";
+  searchResults = null;
+  searchPage = 1;
+  hasMoreSearch = false;
+
+  renderCatalog();
+}
+
+function setupEvents() {
+  // Navigation
+  $$(".nav-link").forEach((button) => {
+    button.addEventListener("click", () => {
+      setView(button.dataset.view || "home");
+    });
+  });
+
+  $("#homeBrand")?.addEventListener("click", (event) => {
+    event.preventDefault();
+    setView("home");
+  });
+
+  $("#exploreButton")?.addEventListener("click", () => {
+    setView("browse");
+  });
+
+  $("#browseFromWatchlist")?.addEventListener("click", () => {
+    setView("browse");
+  });
+
+  // Search
+  $("#searchInput")?.addEventListener("input", (event) => {
+    const query = event.target.value;
+
+    clearTimeout(searchTimer);
+
+    if (!query.trim()) {
+      searchResults = null;
+      searchPage = 1;
+      hasMoreSearch = false;
+      activeGenre = "All";
+      renderCatalog();
+      return;
+    }
+
+    searchTimer = setTimeout(() => {
+      performSearch(query);
+    }, 650);
+  });
+
+  $("#searchInput")?.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      clearTimeout(searchTimer);
+      performSearch(event.target.value);
+    }
+  });
+
+  // Load more
+  $("#loadMoreButton")?.addEventListener("click", loadMoreAnime);
+
+  // Sort
+  $("#sortSelect")?.addEventListener("change", renderCatalog);
+
+  // Surprise button
+  $("#randomButton")?.addEventListener("click", surpriseMe);
+
+  // Reset filters
+  $("#resetFiltersButton")?.addEventListener("click", resetFilters);
+
+  // History
+  $("#clearHistoryButton")?.addEventListener("click", clearHistory);
+
+  // Details modal
+  $$("[data-close-modal]").forEach((button) => {
+    button.addEventListener("click", closeDetails);
+  });
+
+  $("#detailModal")?.addEventListener("click", (event) => {
+    if (event.target === $("#detailModal")) {
+      closeDetails();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !$("#detailModal").hidden) {
+      closeDetails();
+    }
+
+    // Press / to focus search, unless already typing.
+    if (
+      event.key === "/" &&
+      !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)
+    ) {
+      event.preventDefault();
+      $("#searchInput")?.focus();
+    }
+  });
+
+  // Watchlist buttons, anime cards, and remove-history buttons.
+  document.addEventListener("click", (event) => {
+    const watchlistButton = event.target.closest("[data-toggle-watchlist]");
+
+    if (watchlistButton) {
+      event.stopPropagation();
+      toggleWatchlist(Number(watchlistButton.dataset.toggleWatchlist));
+      return;
+    }
+
+    const removeButton = event.target.closest("[data-remove-history]");
+
+    if (removeButton) {
+      event.stopPropagation();
+      removeFromHistory(Number(removeButton.dataset.removeHistory));
+      return;
+    }
+
+    const openButton = event.target.closest("[data-open-anime]");
+
+    if (openButton) {
+      openDetails(Number(openButton.dataset.openAnime));
+    }
+  });
+
+  // Keyboard support for clickable anime titles and posters.
+  document.addEventListener("keydown", (event) => {
+    if (
+      (event.key === "Enter" || event.key === " ") &&
+      event.target.matches("[data-open-anime]")
+    ) {
+      event.preventDefault();
+      openDetails(Number(event.target.dataset.openAnime));
+    }
+  });
+
+  // The button opens the official viewing options; it does not fake playback.
+  $("#watchNowButton")?.addEventListener("click", () => {
+    $("#officialLinks")?.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  });
+
+  $("#detailSaveButton")?.addEventListener("click", () => {
+    if (currentAnime) {
+      toggleWatchlist(currentAnime.id);
+    }
+  });
+}
+
+async function initAnimeP() {
+  setupEvents();
+  renderGenres();
+  renderWatchlist();
+  renderContinueWatching();
+
+  await loadInitialCatalog();
+}
+
+document.addEventListener("DOMContentLoaded", initAnimeP);
