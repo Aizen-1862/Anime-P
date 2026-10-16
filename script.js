@@ -5,7 +5,7 @@
    Streaming: official provider links only
 ========================================================= */
 
-const API_BASE = "https://api.jikan.moe/v4";
+const API_BASE = "https://api.tenrai.org/v1";
 const PAGE_SIZE = 24;
 
 const $ = (selector) => document.querySelector(selector);
