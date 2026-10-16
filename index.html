@@ -1,191 +1,171 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#070b14">
-  <meta name="description" content="Anime:P — discover anime, save your watchlist, and watch through authorized video sources.">
+  <meta name="theme-color" content="#080b18">
+  <meta name="description" content="Explore anime, discover new series, and manage your personal anime watchlist with Anime:P.">
   <title>Anime:P — Your Anime Universe</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
 </head>
 <body>
   <div class="ambient ambient-one"></div>
   <div class="ambient ambient-two"></div>
 
   <header class="topbar">
-    <a class="brand" href="#" aria-label="Anime:P home">
-      <span class="brand-mark">A:P</span>
-      <span class="brand-word">ANIME<span>:</span>P</span>
+    <a href="#" class="brand" id="homeBrand" aria-label="Anime:P home">
+      <span class="brand-mark">:P</span>
+      <span class="brand-name">ANIME<span>:P</span></span>
     </a>
 
     <nav class="main-nav" aria-label="Main navigation">
       <button class="nav-link active" data-view="home">Home</button>
-      <button class="nav-link" data-view="browse">Discover</button>
-      <button class="nav-link" data-view="watchlist">My List <span id="listCount" class="nav-count">0</span></button>
+      <button class="nav-link" data-view="browse">Explore</button>
+      <button class="nav-link" data-view="watchlist">My Watchlist</button>
     </nav>
 
-    <div class="top-actions">
-      <label class="search-box" aria-label="Search anime">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="11" cy="11" r="7"></circle>
-          <path d="m16 16 4 4"></path>
-        </svg>
-        <input id="searchInput" type="search" placeholder="Search anime..." autocomplete="off">
-        <kbd>/</kbd>
-      </label>
-      <button class="avatar" id="profileButton" title="Local profile">A</button>
-    </div>
+    <label class="header-search">
+      <span aria-hidden="true">⌕</span>
+      <input id="searchInput" type="search" placeholder="Search anime..." autocomplete="off">
+      <kbd>/</kbd>
+    </label>
   </header>
 
-  <main>
-    <section id="hero" class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow"><span class="pulse-dot"></span> YOUR NEXT OBSESSION STARTS HERE</div>
-        <p class="hero-kicker">DISCOVER · STREAM · REPEAT</p>
-        <h1>Find your next<br><span>anime obsession.</span></h1>
-        <p class="hero-description">Explore new worlds, meet unforgettable characters, and keep your next episode close.</p>
-
+  <main class="page-shell">
+    <section class="hero" id="heroSection">
+      <div class="hero-content">
+        <div class="eyebrow"><span class="live-dot"></span> YOUR NEXT ANIME OBSESSION</div>
+        <h1>Enter your<br><span>anime universe.</span></h1>
+        <p>Discover unforgettable stories, explore new worlds, and keep your next watch close.</p>
         <div class="hero-actions">
-          <button class="btn btn-primary" id="exploreButton"><span>✦</span> Explore anime</button>
-          <button class="btn btn-ghost" id="heroListButton">♡ My watchlist</button>
+          <button class="btn btn-primary" id="exploreButton">Explore Anime <span>↗</span></button>
+          <button class="btn btn-secondary" id="randomButton">Surprise Me ✦</button>
         </div>
-
         <div class="hero-meta">
-          <span class="meta-chip">ANIME:P</span>
-          <span>Official free streams when available</span>
-          <span class="meta-separator">•</span>
-          <span>Licensed viewing options</span>
+          <span>✦ Discover</span>
+          <span>♡ Save favourites</span>
+          <span>▶ Track your journey</span>
         </div>
       </div>
-
       <div class="hero-art" aria-hidden="true">
-        <div class="orbit orbit-one"></div>
-        <div class="orbit orbit-two"></div>
-        <div class="hero-glow"></div>
-        <div class="hero-monogram">A<span>:</span>P</div>
-        <div class="hero-art-caption">
-          <span>ANIME:P</span>
-          <small>ENTER THE MULTIVERSE</small>
-        </div>
+        <div class="hero-orbit orbit-one"></div>
+        <div class="hero-orbit orbit-two"></div>
+        <div class="hero-symbol">ア</div>
+        <div class="hero-chip chip-top">ANIME:P / EXPLORE</div>
+        <div class="hero-chip chip-bottom">A NEW WORLD AWAITS ✦</div>
       </div>
-      <div class="hero-bottom-line"></div>
     </section>
 
-    <section id="continueSection" class="content-section hidden">
+    <section class="section" id="continueSection" hidden>
       <div class="section-heading">
         <div>
-          <p class="section-eyebrow">PICK UP WHERE YOU LEFT OFF</p>
-          <h2>Continue watching <span class="heading-spark">↗</span></h2>
+          <p class="section-kicker">PICK UP WHERE YOU LEFT OFF</p>
+          <h2>Continue watching <span class="heading-icon">↗</span></h2>
         </div>
-        <button class="text-button" data-view="history">View history <span>→</span></button>
+        <button class="text-button" id="clearHistoryButton">Clear history</button>
       </div>
-      <div id="continueGrid" class="anime-row"></div>
+      <div class="anime-grid compact-grid" id="continueGrid"></div>
     </section>
 
-    <section id="homeTrending" class="content-section">
+    <section class="section" id="homeTrending">
       <div class="section-heading">
         <div>
-          <p class="section-eyebrow">THE COMMUNITY'S NEXT FAVORITES</p>
-          <h2>Explore anime <span class="heading-spark">✦</span></h2>
-          <p class="section-subtitle">Discover your next world.</p>
+          <p class="section-kicker">FIND YOUR NEXT FAVOURITE</p>
+          <h2 id="catalogHeading">Popular anime <span class="heading-icon">✦</span></h2>
+          <p class="section-description" id="catalogDescription">Stories worth getting lost in.</p>
         </div>
-        <button class="text-button" data-view="browse">View all <span>→</span></button>
+        <div class="catalog-tools">
+          <span class="result-count" id="resultsCount">Loading anime...</span>
+          <select id="sortSelect" aria-label="Sort anime">
+            <option value="popular">Most popular</option>
+            <option value="score">Highest rated</option>
+            <option value="title">Title A–Z</option>
+          </select>
+        </div>
       </div>
 
-      <div id="genreChips" class="genre-chips"></div>
-      <div id="animeGrid" class="anime-grid"></div>
+      <div class="genre-bar" id="genreBar" aria-label="Filter by genre">
+        <button class="genre-chip active" data-genre="All">All</button>
+      </div>
 
-      <div id="emptyState" class="empty-state hidden">
+      <div class="status-message" id="statusMessage" role="status" hidden></div>
+      <div class="anime-grid" id="animeGrid"></div>
+
+      <div class="empty-state" id="emptyState" hidden>
         <div class="empty-icon">⌕</div>
         <h3>No anime found</h3>
-        <p>Try another title or switch up your filters.</p>
-        <button class="btn btn-ghost" id="clearFilters">Clear filters</button>
+        <p>Try another title or choose a different genre.</p>
+        <button class="btn btn-secondary" id="resetFiltersButton">Reset filters</button>
+      </div>
+
+      <div class="load-more-wrap" id="loadMoreWrap">
+        <p id="loadMoreStatus">Discover more anime as you scroll through the universe.</p>
+        <button class="btn btn-primary" id="loadMoreButton">Load More Anime <span>↓</span></button>
       </div>
     </section>
 
-    <section id="watchlistSection" class="content-section hidden">
+    <section class="section" id="watchlistSection" hidden>
       <div class="section-heading">
         <div>
-          <p class="section-eyebrow">YOUR PERSONAL COLLECTION</p>
-          <h2>My watchlist <span class="heading-spark">♡</span></h2>
-          <p class="section-subtitle">Your saved anime lives here on this device.</p>
+          <p class="section-kicker">YOUR PERSONAL COLLECTION</p>
+          <h2>My watchlist <span class="heading-icon">♡</span></h2>
+          <p class="section-description">All the anime you have saved for later.</p>
         </div>
       </div>
-
-      <div id="watchlistGrid" class="anime-grid"></div>
-
-      <div id="watchlistEmpty" class="empty-state">
+      <div class="anime-grid" id="watchlistGrid"></div>
+      <div class="empty-state" id="watchlistEmpty">
         <div class="empty-icon">♡</div>
-        <h3>Your list is waiting</h3>
-        <p>Tap the heart on an anime to save it here.</p>
-        <button class="btn btn-primary" data-view="browse">Find anime</button>
+        <h3>Your watchlist is waiting</h3>
+        <p>Tap the heart on any anime card to save it here.</p>
+        <button class="btn btn-primary" id="browseFromWatchlist">Explore anime</button>
       </div>
     </section>
 
-    <section id="historySection" class="content-section hidden">
-      <div class="section-heading">
-        <div>
-          <p class="section-eyebrow">YOUR RECENTLY OPENED EPISODES</p>
-          <h2>Continue watching <span class="heading-spark">↗</span></h2>
-        </div>
-      </div>
-
-      <div id="historyGrid" class="anime-grid"></div>
-
-      <div id="historyEmpty" class="empty-state">
-        <div class="empty-icon">▷</div>
-        <h3>Nothing playing yet</h3>
-        <p>Open an anime episode and it will appear here.</p>
-        <button class="btn btn-primary" data-view="browse">Discover anime</button>
-      </div>
-    </section>
-
-    <section class="bottom-callout">
-      <div class="callout-symbol">✦</div>
-      <div>
-        <p class="section-eyebrow">YOUR WATCHLIST. YOUR WORLD.</p>
-        <h2>Every great story starts with one episode.</h2>
-        <p>Discover something new and save it for later.</p>
-      </div>
-      <button class="btn btn-primary" data-view="browse">Find your next anime <span>→</span></button>
+    <section class="footer-note">
+      <span class="footer-logo">:P</span>
+      <p>Made for anime fans. Discover titles and use official streaming providers where available.</p>
+      <span class="api-note">Anime listings powered by Jikan / MyAnimeList data</span>
     </section>
   </main>
 
-  <footer class="footer">
-    <a class="footer-brand" href="#">ANIME<span>:</span>P</a>
-    <p>Discover anime. Stream through authorized sources where available.</p>
-    <div>
-      <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube</a>
-      <span>•</span>
-      <button id="aboutButton">About Anime:P</button>
-    </div>
-    <small>Fan-made discovery interface. Anime titles, artwork, and video rights belong to their respective owners. Availability and embedding permissions may vary by region.</small>
+  <div class="modal-backdrop" id="detailModal" hidden>
+    <section class="detail-modal" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+      <button class="modal-close" data-close-modal aria-label="Close details">×</button>
+      <div class="detail-banner" id="detailBanner"></div>
+      <div class="detail-body">
+        <div class="detail-poster-wrap">
+          <img id="detailPoster" class="detail-poster" src="" alt="">
+        </div>
+        <div class="detail-copy">
+          <p class="section-kicker" id="detailType">ANIME DETAILS</p>
+          <h2 id="detailTitle">Anime title</h2>
+          <div class="detail-stats" id="detailStats"></div>
+          <div class="detail-genres" id="detailGenres"></div>
+          <p class="detail-synopsis" id="detailSynopsis"></p>
+          <div class="detail-actions">
+            <button class="btn btn-primary" id="watchNowButton">View official options ↗</button>
+            <button class="btn btn-secondary" id="detailSaveButton">♡ Add to watchlist</button>
+          </div>
+          <div class="official-panel">
+            <h3>Episodes & official viewing</h3>
+            <p id="episodeInfo">Episode information may not be available for every title.</p>
+            <div id="officialLinks" class="official-links"></div>
+            <p class="fine-print">Availability and languages depend on each provider and your region. Anime:P does not host or copy video files.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <footer class="site-footer">
+    <p>ANIME<span>:P</span> <span class="footer-divider">•</span> Explore responsibly. Support official releases.</p>
   </footer>
 
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
-  <dialog id="detailDialog" class="app-dialog">
-    <button class="dialog-close" data-close="detailDialog" aria-label="Close">×</button>
-    <div id="detailContent"></div>
-  </dialog>
-
-  <dialog id="playerDialog" class="app-dialog player-dialog">
-    <button class="dialog-close" data-close="playerDialog" aria-label="Close player">×</button>
-    <div id="playerContent"></div>
-  </dialog>
-
-  <dialog id="aboutDialog" class="app-dialog small-dialog">
-    <button class="dialog-close" data-close="aboutDialog" aria-label="Close">×</button>
-    <p class="section-eyebrow">A LITTLE ABOUT US</p>
-    <h2>Anime:P</h2>
-    <p>Anime:P is an independent anime discovery interface. It does not host or re-upload anime episodes.</p>
-    <p>Authorized episode embeds can play inside the player when configured. Otherwise, Anime:P can show a trailer preview and links to official providers. Availability varies by region.</p>
-    <button class="btn btn-primary" data-close="aboutDialog">Got it</button>
-  </dialog>
+  <script src="script.js"></script>
 </body>
 </html>
