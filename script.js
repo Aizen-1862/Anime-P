@@ -1,7 +1,7 @@
 
 "use strict";
 
-const API = "https://api.jikan.moe/v4";
+const API = "https://api.tenrai.org/v1";
 const PAGE_SIZE = 24;
 
 const $ = (s, root = document) => root.querySelector(s);
