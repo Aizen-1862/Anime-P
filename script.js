@@ -1,243 +1,301 @@
 
 /* =========================================================
-   ANIME:P — VERSION 1
-   Complete Frontend JavaScript
-   GitHub Pages Compatible
+   ANIME:P — SCRIPT.JS
+   Version 1 | Custom-matched to index.html
+   GitHub Pages compatible | No API key required
    ========================================================= */
 
 "use strict";
 
-/* =========================
-   CONFIGURATION
-========================= */
+/* =========================================================
+   1. CONFIGURATION & ANIME CATALOG
+   ========================================================= */
 
-const STORAGE_KEYS = {
-  favorites: "animep_favorites",
-  watchlist: "animep_watchlist",
-  progress: "animep_progress",
-  ratings: "animep_ratings"
+const STORAGE = {
+  watchlist: "animep_watchlist_v1",
+  history: "animep_history_v1",
+  ratings: "animep_ratings_v1"
 };
 
-/*
-  Add anime entries here.
-
-  IMPORTANT:
-  Only use video URLs you are authorized to embed.
-  Replace the example entries with verified official sources.
-*/
-
-const ANIME_DATA = [
+const ANIME = [
   {
     id: "demon-slayer",
     title: "Demon Slayer",
-    japaneseTitle: "Kimetsu no Yaiba",
+    japanese: "Kimetsu no Yaiba",
     year: 2019,
     rating: 8.6,
-    genres: ["Action", "Fantasy", "Adventure"],
-    languages: ["Japanese", "English"],
     episodes: 26,
     status: "Completed",
+    genres: ["Action", "Fantasy", "Adventure"],
+    languages: ["Japanese", "English"],
     description:
-      "A young swordsman enters a dangerous world of demons while searching for a way to help his sister.",
-    poster: "",
-    banner: "",
+      "A young swordsman joins the Demon Slayer Corps in search of a way to help his sister and protect others from demons.",
+    poster: "https://image.tmdb.org/t/p/w500/xUfRZu2mi8jH6SzQEJGP6tjBuYj.jpg",
     featured: true,
     episodeList: [
-      {
-        number: 1,
-        title: "Cruelty",
-        videoUrl: "",
-        source: "Official source required"
-      },
-      {
-        number: 2,
-        title: "Trainer Sakonji Urokodaki",
-        videoUrl: "",
-        source: "Official source required"
-      }
+      { number: 1, title: "Cruelty", videoId: "" },
+      { number: 2, title: "Trainer Sakonji Urokodaki", videoId: "" },
+      { number: 3, title: "Sabito and Makomo", videoId: "" }
     ]
   },
   {
     id: "jujutsu-kaisen",
     title: "Jujutsu Kaisen",
-    japaneseTitle: "Jujutsu Kaisen",
+    japanese: "Jujutsu Kaisen",
     year: 2020,
     rating: 8.5,
-    genres: ["Action", "Fantasy", "Supernatural"],
-    languages: ["Japanese", "English"],
     episodes: 24,
     status: "Ongoing",
+    genres: ["Action", "Fantasy", "Supernatural"],
+    languages: ["Japanese", "English"],
     description:
-      "A student becomes involved in the hidden world of curses and sorcerers.",
-    poster: "",
-    banner: "",
+      "Yuji Itadori enters the dangerous world of cursed energy and jujutsu sorcerers after a supernatural encounter.",
+    poster: "https://image.tmdb.org/t/p/w500/fHpKWq9ayzSk8nSwqRuaAUemRKh.jpg",
     featured: true,
     episodeList: [
-      {
-        number: 1,
-        title: "Ryomen Sukuna",
-        videoUrl: "",
-        source: "Official source required"
-      },
-      {
-        number: 2,
-        title: "For Myself",
-        videoUrl: "",
-        source: "Official source required"
-      }
+      { number: 1, title: "Ryomen Sukuna", videoId: "" },
+      { number: 2, title: "For Myself", videoId: "" },
+      { number: 3, title: "Girl of Steel", videoId: "" }
     ]
   },
   {
     id: "spy-family",
     title: "SPY x FAMILY",
-    japaneseTitle: "Spy x Family",
+    japanese: "Spy x Family",
     year: 2022,
     rating: 8.3,
-    genres: ["Comedy", "Action", "Slice of Life"],
-    languages: ["Japanese", "English"],
     episodes: 25,
     status: "Ongoing",
+    genres: ["Comedy", "Action", "Slice of Life"],
+    languages: ["Japanese", "English"],
     description:
-      "A spy, an assassin, and a telepath form an unusual family while hiding their secrets.",
-    poster: "",
-    banner: "",
+      "A spy, an assassin, and a telepath form an unusual family while each hides a remarkable secret.",
+    poster: "https://image.tmdb.org/t/p/w500/3r4LYFuXrg3G8fepysr4xSLWnQL.jpg",
     featured: false,
     episodeList: [
-      {
-        number: 1,
-        title: "Operation Strix",
-        videoUrl: "",
-        source: "Official source required"
-      }
+      { number: 1, title: "Operation Strix", videoId: "" },
+      { number: 2, title: "Secure a Wife", videoId: "" }
     ]
   },
   {
     id: "haikyuu",
     title: "Haikyu!!",
-    japaneseTitle: "Haikyu!!",
+    japanese: "Haikyu!!",
     year: 2014,
     rating: 8.7,
-    genres: ["Sports", "Comedy", "Drama"],
-    languages: ["Japanese", "English"],
     episodes: 25,
     status: "Completed",
+    genres: ["Sports", "Comedy", "Drama"],
+    languages: ["Japanese", "English"],
     description:
-      "A determined volleyball player works toward competing at the highest level.",
-    poster: "",
-    banner: "",
+      "A determined young volleyball player strives to reach the top despite his height and the challenges ahead.",
+    poster: "https://image.tmdb.org/t/p/w500/9z4jRr43JdtU66P0iy8h18OyLql.jpg",
     featured: false,
     episodeList: [
-      {
-        number: 1,
-        title: "The End and the Beginning",
-        videoUrl: "",
-        source: "Official source required"
-      }
+      { number: 1, title: "The End and the Beginning", videoId: "" },
+      { number: 2, title: "Karasuno High School", videoId: "" }
     ]
   },
   {
     id: "frieren",
     title: "Frieren: Beyond Journey's End",
-    japaneseTitle: "Sousou no Frieren",
+    japanese: "Sousou no Frieren",
     year: 2023,
     rating: 9.3,
-    genres: ["Fantasy", "Adventure", "Drama"],
-    languages: ["Japanese"],
     episodes: 28,
     status: "Completed",
+    genres: ["Fantasy", "Adventure", "Drama"],
+    languages: ["Japanese"],
     description:
-      "An elven mage reflects on time, friendship, and the meaning of human life after an adventure ends.",
-    poster: "",
-    banner: "",
+      "After the end of a legendary journey, an elven mage begins to understand time, friendship, and the lives of those around her.",
+    poster: "https://image.tmdb.org/t/p/w500/8rOPtjbp0tD7QvU1hYf1WzH7L1Q.jpg",
     featured: true,
     episodeList: [
-      {
-        number: 1,
-        title: "The End of the Journey",
-        videoUrl: "",
-        source: "Official source required"
-      }
+      { number: 1, title: "The End of the Journey", videoId: "" },
+      { number: 2, title: "It Didn't Have to Be Magic...", videoId: "" }
     ]
   },
   {
     id: "one-punch-man",
     title: "One-Punch Man",
-    japaneseTitle: "One-Punch Man",
+    japanese: "One Punch Man",
     year: 2015,
     rating: 8.7,
-    genres: ["Action", "Comedy", "Superhero"],
-    languages: ["Japanese", "English"],
     episodes: 12,
     status: "Ongoing",
+    genres: ["Action", "Comedy", "Superhero"],
+    languages: ["Japanese", "English"],
     description:
-      "An overwhelmingly powerful hero searches for excitement in a world of monsters and heroes.",
-    poster: "",
-    banner: "",
+      "An immensely powerful hero searches for a worthy challenge in a world full of monsters and superheroes.",
+    poster: "https://image.tmdb.org/t/p/w500/iE3s0lG5QVdEHOEZnoAxjmMtvne.jpg",
     featured: false,
     episodeList: [
-      {
-        number: 1,
-        title: "The Strongest Man",
-        videoUrl: "",
-        source: "Official source required"
-      }
+      { number: 1, title: "The Strongest Man", videoId: "" },
+      { number: 2, title: "The Lone Cyborg", videoId: "" }
+    ]
+  },
+  {
+    id: "attack-on-titan",
+    title: "Attack on Titan",
+    japanese: "Shingeki no Kyojin",
+    year: 2013,
+    rating: 9.1,
+    episodes: 25,
+    status: "Completed",
+    genres: ["Action", "Drama", "Fantasy"],
+    languages: ["Japanese", "English"],
+    description:
+      "Humanity struggles to survive behind enormous walls in a world threatened by mysterious Titans.",
+    poster: "https://image.tmdb.org/t/p/w500/hTP1DtLGFamjfu8WqjnuQdP1n4i.jpg",
+    featured: true,
+    episodeList: [
+      { number: 1, title: "To You, in 2000 Years", videoId: "" },
+      { number: 2, title: "That Day", videoId: "" }
+    ]
+  },
+  {
+    id: "death-note",
+    title: "Death Note",
+    japanese: "Desu Noto",
+    year: 2006,
+    rating: 8.9,
+    episodes: 37,
+    status: "Completed",
+    genres: ["Mystery", "Thriller", "Supernatural"],
+    languages: ["Japanese", "English"],
+    description:
+      "A brilliant student discovers a supernatural notebook and becomes entangled in a battle of intelligence and justice.",
+    poster: "https://image.tmdb.org/t/p/w500/b6a7B6wE9KpJ5R7n3Y1c5z.jpg",
+    featured: false,
+    episodeList: [
+      { number: 1, title: "Rebirth", videoId: "" },
+      { number: 2, title: "Confrontation", videoId: "" }
+    ]
+  },
+  {
+    id: "solo-leveling",
+    title: "Solo Leveling",
+    japanese: "Ore dake Level Up na Ken",
+    year: 2024,
+    rating: 8.6,
+    episodes: 12,
+    status: "Ongoing",
+    genres: ["Action", "Fantasy", "Adventure"],
+    languages: ["Japanese", "English"],
+    description:
+      "A hunter gains a mysterious ability that lets him grow stronger through a series of dangerous challenges.",
+    poster: "https://image.tmdb.org/t/p/w500/geCRueV3ElhRTr0xtJuEWJt6dJ1.jpg",
+    featured: true,
+    episodeList: [
+      { number: 1, title: "I'm Used to It", videoId: "" },
+      { number: 2, title: "If I Had One More Chance", videoId: "" }
+    ]
+  },
+  {
+    id: "blue-lock",
+    title: "Blue Lock",
+    japanese: "Blue Lock",
+    year: 2022,
+    rating: 8.1,
+    episodes: 24,
+    status: "Ongoing",
+    genres: ["Sports", "Drama"],
+    languages: ["Japanese", "English"],
+    description:
+      "Talented young footballers compete in an intense program designed to create an extraordinary striker.",
+    poster: "https://image.tmdb.org/t/p/w500/mV9gUCw4I5p7J8mL.jpg",
+    featured: false,
+    episodeList: [
+      { number: 1, title: "Dream", videoId: "" },
+      { number: 2, title: "Monster", videoId: "" }
+    ]
+  },
+  {
+    id: "your-name",
+    title: "Your Name",
+    japanese: "Kimi no Na wa",
+    year: 2016,
+    rating: 8.8,
+    episodes: 1,
+    status: "Movie",
+    genres: ["Romance", "Drama", "Fantasy"],
+    languages: ["Japanese", "English"],
+    description:
+      "Two teenagers begin mysteriously experiencing each other's lives across distance and time.",
+    poster: "https://image.tmdb.org/t/p/w500/q719jXXEzOoYaps6babgKnONONX.jpg",
+    featured: false,
+    episodeList: [
+      { number: 1, title: "Full Movie", videoId: "" }
+    ]
+  },
+  {
+    id: "violet-evergarden",
+    title: "Violet Evergarden",
+    japanese: "Violet Evergarden",
+    year: 2018,
+    rating: 8.7,
+    episodes: 13,
+    status: "Completed",
+    genres: ["Drama", "Fantasy", "Slice of Life"],
+    languages: ["Japanese", "English"],
+    description:
+      "A former soldier becomes a letter writer and gradually learns to understand emotions and human connections.",
+    poster: "https://image.tmdb.org/t/p/w500/ImvHbM4GsJJykarnOzhtpG6ax6.jpg",
+    featured: false,
+    episodeList: [
+      { number: 1, title: "I Love You and Auto Memory Dolls", videoId: "" },
+      { number: 2, title: "Never Coming Back", videoId: "" }
     ]
   }
 ];
 
-/* =========================
-   STORAGE UTILITIES
-========================= */
+/* =========================================================
+   2. STATE AND STORAGE
+   ========================================================= */
 
-function readStorage(key, fallback = []) {
+let currentView = "home";
+let searchQuery = "";
+let selectedGenre = "All";
+let sortMode = "popular";
+
+function readJSON(key, fallback) {
   try {
-    const value = localStorage.getItem(key);
-    return value ? JSON.parse(value) : fallback;
+    const raw = localStorage.getItem(key);
+    return raw === null ? fallback : JSON.parse(raw);
   } catch (error) {
-    console.warn("Anime:P could not read saved data:", error);
+    console.warn("Anime:P storage read failed:", error);
     return fallback;
   }
 }
 
-function writeStorage(key, value) {
+function saveJSON(key, value) {
   try {
     localStorage.setItem(key, JSON.stringify(value));
     return true;
   } catch (error) {
-    console.warn("Anime:P could not save data:", error);
-    showToast("Could not save. Check browser storage.");
+    showToast("Unable to save. Check your browser storage.");
     return false;
   }
 }
 
-function getFavorites() {
-  return readStorage(STORAGE_KEYS.favorites);
-}
-
 function getWatchlist() {
-  return readStorage(STORAGE_KEYS.watchlist);
+  return readJSON(STORAGE.watchlist, []);
 }
 
-function getProgress() {
-  return readStorage(STORAGE_KEYS.progress, {});
+function getHistory() {
+  return readJSON(STORAGE.history, []);
 }
 
 function getRatings() {
-  return readStorage(STORAGE_KEYS.ratings, {});
+  return readJSON(STORAGE.ratings, {});
 }
 
-/* =========================
-   DOM UTILITIES
-========================= */
+function findAnime(id) {
+  return ANIME.find(anime => anime.id === id);
+}
 
-const $ = (selector, root = document) =>
-  root.querySelector(selector);
-
-const $$ = (selector, root = document) =>
-  [...root.querySelectorAll(selector)];
-
-function escapeHTML(value = "") {
-  return String(value).replace(/[&<>"']/g, character => ({
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, character => ({
     "&": "&amp;",
     "<": "&lt;",
     ">": "&gt;",
@@ -246,215 +304,211 @@ function escapeHTML(value = "") {
   })[character]);
 }
 
-function showToast(message) {
-  let toast = $("#animeToast");
-
-  if (!toast) {
-    toast = document.createElement("div");
-    toast.id = "animeToast";
-    toast.className = "anime-toast";
-    toast.setAttribute("role", "status");
-
-    Object.assign(toast.style, {
-      position: "fixed",
-      bottom: "24px",
-      left: "50%",
-      transform: "translateX(-50%)",
-      zIndex: "99999",
-      padding: "12px 20px",
-      background: "#211b36",
-      color: "#ffffff",
-      border: "1px solid #8b5cf6",
-      borderRadius: "12px",
-      boxShadow: "0 8px 30px #0008",
-      maxWidth: "90%",
-      textAlign: "center"
-    });
-
-    document.body.appendChild(toast);
+function safeImage(url) {
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === "https:" ? parsed.href : "";
+  } catch {
+    return "";
   }
+}
+
+/* =========================================================
+   3. TOAST NOTIFICATIONS
+   ========================================================= */
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
 
   toast.textContent = message;
-  toast.hidden = false;
+  toast.classList.add("show");
 
   clearTimeout(showToast.timer);
 
   showToast.timer = setTimeout(() => {
-    toast.hidden = true;
+    toast.classList.remove("show");
   }, 2600);
 }
 
-/* =========================
-   ANIME LOOKUP
-========================= */
+/* =========================================================
+   4. POSTERS AND ANIME CARDS
+   ========================================================= */
 
-function getAnimeById(id) {
-  return ANIME_DATA.find(anime => anime.id === id);
-}
-
-function getAnimePoster(anime) {
-  if (anime.poster) return anime.poster;
-
-  return "";
-}
-
-function getAnimeImageMarkup(anime) {
-  const poster = getAnimePoster(anime);
-
-  if (poster) {
-    return `
-      <img
-        class="anime-poster"
-        src="${escapeHTML(poster)}"
-        alt="${escapeHTML(anime.title)} poster"
-        loading="lazy"
-        onerror="this.hidden=true"
-      >
-    `;
-  }
+function posterMarkup(anime, extraClass = "") {
+  const poster = safeImage(anime.poster);
 
   return `
-    <div class="anime-poster-placeholder" aria-label="Poster unavailable">
-      <span>✦</span>
-      <strong>${escapeHTML(anime.title)}</strong>
-      <small>ANIME:P</small>
+    <div class="poster-wrap ${extraClass}">
+      ${
+        poster
+          ? `<img class="poster-image"
+               src="${escapeHTML(poster)}"
+               alt="${escapeHTML(anime.title)} poster"
+               loading="lazy">`
+          : `<div class="poster-placeholder">
+               <span>✦</span>
+               <strong>${escapeHTML(anime.title)}</strong>
+               <small>ANIME:P</small>
+             </div>`
+      }
+      <div class="poster-overlay"></div>
     </div>
   `;
 }
 
-/* =========================
-   ANIME CARD RENDERING
-========================= */
+function createCard(anime) {
+  const saved = getWatchlist().includes(anime.id);
+  const userRating = getRatings()[anime.id];
 
-function createAnimeCard(anime) {
-  const favorite = getFavorites().includes(anime.id);
-  const watchlist = getWatchlist().includes(anime.id);
+  const article = document.createElement("article");
+  article.className = "anime-card";
+  article.dataset.id = anime.id;
 
-  const card = document.createElement("article");
+  article.innerHTML = `
+    <div class="card-poster">
+      ${posterMarkup(anime)}
 
-  card.className = "anime-card";
-  card.dataset.animeId = anime.id;
-
-  card.innerHTML = `
-    <div class="anime-card-poster">
-      ${getAnimeImageMarkup(anime)}
-
-      <span class="anime-rating">
-        ★ ${Number(anime.rating).toFixed(1)}
-      </span>
-
-      <div class="anime-card-actions">
+      <div class="card-topline">
+        <span class="rating-pill">★ ${Number(anime.rating).toFixed(1)}</span>
         <button
-          type="button"
-          class="anime-favorite-btn ${favorite ? "active" : ""}"
-          data-action="favorite"
-          aria-label="${favorite ? "Remove from favorites" : "Add to favorites"}"
-          aria-pressed="${favorite}"
-        >${favorite ? "♥" : "♡"}</button>
-
-        <button
-          type="button"
-          class="anime-watchlist-btn ${watchlist ? "active" : ""}"
-          data-action="watchlist"
-          aria-label="${watchlist ? "Remove from watchlist" : "Add to watchlist"}"
-          aria-pressed="${watchlist}"
-        >${watchlist ? "✓" : "+"}</button>
+          class="heart-button ${saved ? "saved" : ""}"
+          data-action="toggle-list"
+          aria-label="${saved ? "Remove from watchlist" : "Add to watchlist"}"
+          aria-pressed="${saved}"
+          title="${saved ? "Remove from My List" : "Add to My List"}"
+        >${saved ? "♥" : "♡"}</button>
       </div>
+
+      <button class="poster-play" data-action="details" aria-label="View ${escapeHTML(anime.title)} details">
+        <span>▶</span>
+      </button>
+
+      <span class="poster-year">${anime.year}</span>
     </div>
 
-    <div class="anime-card-info">
+    <div class="card-info">
       <h3>${escapeHTML(anime.title)}</h3>
 
-      <p class="anime-meta">
-        ${anime.year} · ${anime.episodes} episodes
+      <p class="card-subtitle">
+        ${escapeHTML(anime.japanese)}
       </p>
 
-      <div class="anime-tags">
+      <div class="card-genres">
         ${anime.genres.slice(0, 2).map(genre =>
           `<span>${escapeHTML(genre)}</span>`
         ).join("")}
       </div>
 
-      <button
-        type="button"
-        class="anime-details-btn"
-        data-action="details"
-      >View Details ↗</button>
+      <div class="card-footer">
+        <span>${anime.episodes} ${anime.status === "Movie" ? "movie" : "episodes"}</span>
+        <button data-action="details" class="details-link">Details ↗</button>
+      </div>
+
+      ${userRating ? `<small class="user-rating">Your rating: ${userRating}/10</small>` : ""}
     </div>
   `;
 
-  return card;
+  const img = article.querySelector(".poster-image");
+
+  if (img) {
+    img.addEventListener("error", () => {
+      const wrap = img.closest(".poster-wrap");
+
+      if (wrap) {
+        wrap.innerHTML = `
+          <div class="poster-placeholder">
+            <span>✦</span>
+            <strong>${escapeHTML(anime.title)}</strong>
+            <small>ANIME:P</small>
+          </div>
+        `;
+      }
+    }, { once: true });
+  }
+
+  return article;
 }
 
-function renderAnimeList(container, animeList) {
+function renderCards(container, animeList) {
   if (!container) return;
 
   container.replaceChildren();
 
-  if (!animeList.length) {
-    const empty = document.createElement("p");
-    empty.className = "anime-empty-state";
-    empty.textContent = "No anime found. Try another search.";
-    container.appendChild(empty);
-    return;
-  }
-
-  const fragment = document.createDocumentFragment();
-
   animeList.forEach(anime => {
-    fragment.appendChild(createAnimeCard(anime));
+    container.appendChild(createCard(anime));
   });
-
-  container.appendChild(fragment);
 }
 
-/* =========================
-   SEARCH AND FILTERS
-========================= */
+/* =========================================================
+   5. GENRE CHIPS
+   ========================================================= */
 
-let currentGenre = "All";
-let currentQuery = "";
-let currentSort = "popular";
-let currentLanguage = "All";
+function renderGenres() {
+  const container = document.getElementById("genreChips");
+  if (!container) return;
 
-function filterAnime() {
-  let results = [...ANIME_DATA];
+  const genres = [
+    "All",
+    ...new Set(ANIME.flatMap(anime => anime.genres))
+  ];
 
-  if (currentQuery) {
-    const query = currentQuery.toLowerCase();
+  container.replaceChildren();
+
+  genres.forEach(genre => {
+    const button = document.createElement("button");
+
+    button.className =
+      "genre-chip" + (selectedGenre === genre ? " active" : "");
+
+    button.textContent = genre;
+    button.dataset.genre = genre;
+
+    button.addEventListener("click", () => {
+      selectedGenre = genre;
+      renderGenres();
+      renderCurrentView();
+    });
+
+    container.appendChild(button);
+  });
+}
+
+/* =========================================================
+   6. SEARCH, FILTER AND SORT
+   ========================================================= */
+
+function getFilteredAnime() {
+  let results = [...ANIME];
+
+  if (searchQuery) {
+    const query = searchQuery.toLowerCase();
 
     results = results.filter(anime => {
-      const searchable = [
+      const text = [
         anime.title,
-        anime.japaneseTitle,
+        anime.japanese,
         anime.description,
+        anime.year,
         ...anime.genres,
         ...anime.languages
       ].join(" ").toLowerCase();
 
-      return searchable.includes(query);
+      return text.includes(query);
     });
   }
 
-  if (currentGenre !== "All") {
+  if (selectedGenre !== "All") {
     results = results.filter(anime =>
-      anime.genres.some(
-        genre => genre.toLowerCase() === currentGenre.toLowerCase()
-      )
+      anime.genres.includes(selectedGenre)
     );
   }
 
-  if (currentLanguage !== "All") {
-    results = results.filter(anime =>
-      anime.languages.includes(currentLanguage)
-    );
-  }
-
-  if (currentSort === "rating") {
+  if (sortMode === "rating") {
     results.sort((a, b) => b.rating - a.rating);
-  } else if (currentSort === "newest") {
+  } else if (sortMode === "newest") {
     results.sort((a, b) => b.year - a.year);
-  } else if (currentSort === "az") {
+  } else if (sortMode === "az") {
     results.sort((a, b) => a.title.localeCompare(b.title));
   } else {
     results.sort((a, b) =>
@@ -466,344 +520,272 @@ function filterAnime() {
   return results;
 }
 
-function updateAnimeDisplay() {
-  const results = filterAnime();
-
-  const container =
-    $("#animeGrid") ||
-    $("#animeContainer") ||
-    $("#animeList");
-
-  renderAnimeList(container, results);
-
-  const count = $("#animeCount");
-
-  if (count) {
-    count.textContent = `${results.length} anime`;
-  }
-}
-
-function setupSearch() {
-  const searchInputs = [
-    $("#searchInput"),
-    $("#animeSearch"),
-    $("#searchBar")
-  ].filter(Boolean);
-
-  searchInputs.forEach(input => {
-    input.addEventListener("input", () => {
-      currentQuery = input.value.trim();
-      updateAnimeDisplay();
-    });
-  });
-
-  const sortSelect = $("#sortSelect");
-
-  if (sortSelect) {
-    sortSelect.addEventListener("change", () => {
-      currentSort = sortSelect.value;
-      updateAnimeDisplay();
-    });
-  }
-
-  const languageSelect = $("#languageFilter");
-
-  if (languageSelect) {
-    languageSelect.addEventListener("change", () => {
-      currentLanguage = languageSelect.value;
-      updateAnimeDisplay();
-    });
-  }
-
-  $$(".genre-filter, [data-genre]").forEach(button => {
-    button.addEventListener("click", () => {
-      currentGenre =
-        button.dataset.genre ||
-        button.textContent.trim() ||
-        "All";
-
-      $$(".genre-filter, [data-genre]").forEach(item => {
-        item.classList.toggle("active", item === button);
-      });
-
-      updateAnimeDisplay();
-    });
-  });
-}
-
-/* =========================
-   FAVORITES
-========================= */
-
-function toggleFavorite(id) {
-  const favorites = getFavorites();
-  const index = favorites.indexOf(id);
-
-  if (index === -1) {
-    favorites.push(id);
-    showToast("Added to favorites ♥");
-  } else {
-    favorites.splice(index, 1);
-    showToast("Removed from favorites");
-  }
-
-  if (!writeStorage(STORAGE_KEYS.favorites, favorites)) return;
-
-  updateAnimeDisplay();
-  renderFavorites();
-}
-
-function renderFavorites() {
-  const container = $("#favoritesGrid") || $("#favoritesContainer");
-
-  if (!container) return;
-
-  const favorites = getFavorites()
-    .map(getAnimeById)
-    .filter(Boolean);
-
-  renderAnimeList(container, favorites);
-}
-
-/* =========================
-   WATCHLIST
-========================= */
-
-function toggleWatchlist(id) {
-  const watchlist = getWatchlist();
-  const index = watchlist.indexOf(id);
-
-  if (index === -1) {
-    watchlist.push(id);
-    showToast("Added to your watchlist +");
-  } else {
-    watchlist.splice(index, 1);
-    showToast("Removed from your watchlist");
-  }
-
-  if (!writeStorage(STORAGE_KEYS.watchlist, watchlist)) return;
-
-  updateAnimeDisplay();
-  renderWatchlist();
-}
-
-function renderWatchlist() {
-  const container = $("#watchlistGrid") || $("#watchlistContainer");
-
-  if (!container) return;
-
-  const items = getWatchlist()
-    .map(getAnimeById)
-    .filter(Boolean);
-
-  renderAnimeList(container, items);
-}
-
-/* =========================
-   ANIME DETAILS
-========================= */
-
-function openAnimeDetails(id) {
-  const anime = getAnimeById(id);
-
-  if (!anime) return;
-
-  const modal = $("#animeModal") || $("#animeDetailsModal");
-
-  if (!modal) {
-    showToast(`${anime.title} — ${anime.genres.join(", ")}`);
+function renderCurrentView() {
+  if (currentView === "watchlist") {
+    renderWatchlist();
     return;
   }
 
-  const poster = $("#modalPoster");
-  const title = $("#modalTitle");
-  const description = $("#modalDescription");
-  const meta = $("#modalMeta");
-  const genres = $("#modalGenres");
-  const episodes = $("#episodeList");
-
-  if (poster) {
-    poster.src = anime.poster || "";
-    poster.alt = `${anime.title} poster`;
-    poster.hidden = !anime.poster;
+  if (currentView === "history") {
+    renderHistory();
+    return;
   }
 
-  if (title) title.textContent = anime.title;
+  const grid = document.getElementById("animeGrid");
+  const empty = document.getElementById("emptyState");
 
-  if (description) {
-    description.textContent = anime.description;
+  const results = getFilteredAnime();
+
+  renderCards(grid, results);
+
+  if (empty) {
+    empty.classList.toggle("hidden", results.length > 0);
   }
-
-  if (meta) {
-    meta.textContent =
-      `${anime.year} · ★ ${anime.rating} · ${anime.status} · ${anime.episodes} episodes`;
-  }
-
-  if (genres) {
-    genres.replaceChildren();
-
-    anime.genres.forEach(genre => {
-      const tag = document.createElement("span");
-      tag.className = "anime-genre-tag";
-      tag.textContent = genre;
-      genres.appendChild(tag);
-    });
-  }
-
-  if (episodes) {
-    renderEpisodes(anime);
-  }
-
-  modal.dataset.animeId = anime.id;
-  modal.hidden = false;
-  modal.setAttribute("aria-hidden", "false");
-
-  document.body.classList.add("modal-open");
-
-  const closeButton = $("[data-action='close-modal']", modal);
-
-  if (closeButton) closeButton.focus();
 }
 
-function closeAnimeDetails() {
-  const modal = $("#animeModal") || $("#animeDetailsModal");
+/* =========================================================
+   7. WATCHLIST
+   ========================================================= */
 
-  if (!modal) return;
+function toggleWatchlist(id) {
+  const list = getWatchlist();
+  const index = list.indexOf(id);
 
-  modal.hidden = true;
-  modal.setAttribute("aria-hidden", "true");
+  if (index >= 0) {
+    list.splice(index, 1);
+    showToast("Removed from My List");
+  } else {
+    list.push(id);
+    showToast("Added to My List ♥");
+  }
 
-  document.body.classList.remove("modal-open");
+  if (!saveJSON(STORAGE.watchlist, list)) return;
+
+  updateListCount();
+  renderCurrentView();
+  renderWatchlist();
+  renderHeroListButton();
 }
 
-/* =========================
-   EPISODE LIST
-========================= */
+function updateListCount() {
+  const count = document.getElementById("listCount");
 
-function renderEpisodes(anime) {
-  const container = $("#episodeList");
+  if (count) {
+    count.textContent = getWatchlist().length;
+  }
+}
 
-  if (!container) return;
+function renderWatchlist() {
+  const grid = document.getElementById("watchlistGrid");
+  const empty = document.getElementById("watchlistEmpty");
 
-  container.replaceChildren();
+  const list = getWatchlist()
+    .map(findAnime)
+    .filter(Boolean);
 
-  const progress = getProgress();
-  const watchedEpisode = progress[anime.id]?.episode || 0;
+  renderCards(grid, list);
 
-  anime.episodeList.forEach(episode => {
-    const button = document.createElement("button");
+  if (empty) {
+    empty.classList.toggle("hidden", list.length > 0);
+  }
+}
 
-    button.type = "button";
-    button.className = "episode-item";
+function renderHeroListButton() {
+  const button = document.getElementById("heroListButton");
+  if (!button) return;
 
-    button.innerHTML = `
-      <span class="episode-number">
-        ${String(episode.number).padStart(2, "0")}
-      </span>
+  const heroAnime = ANIME.find(anime => anime.featured) || ANIME[0];
+  const saved = getWatchlist().includes(heroAnime.id);
 
-      <span class="episode-title">
-        ${escapeHTML(episode.title)}
-      </span>
+  button.textContent = saved ? "✓ Added to my list" : "＋ Add to my list";
+}
 
-      <span class="episode-status">
-        ${episode.number <= watchedEpisode ? "✓ Watched" : "▶ Play"}
-      </span>
-    `;
+/* =========================================================
+   8. CONTINUE WATCHING AND HISTORY
+   ========================================================= */
 
-    button.addEventListener("click", () => {
-      playEpisode(anime.id, episode.number);
-    });
+function addToHistory(id, episodeNumber) {
+  const history = getHistory().filter(item => item.id !== id);
 
-    container.appendChild(button);
+  history.unshift({
+    id,
+    episode: episodeNumber,
+    updatedAt: Date.now()
+  });
+
+  if (history.length > 50) history.length = 50;
+
+  saveJSON(STORAGE.history, history);
+
+  renderContinueWatching();
+  renderHistory();
+}
+
+function renderContinueWatching() {
+  const section = document.getElementById("continueSection");
+  const grid = document.getElementById("continueGrid");
+
+  if (!section || !grid) return;
+
+  const history = getHistory()
+    .map(item => ({
+      ...item,
+      anime: findAnime(item.id)
+    }))
+    .filter(item => item.anime);
+
+  section.classList.toggle("hidden", history.length === 0);
+  grid.replaceChildren();
+
+  history.slice(0, 8).forEach(item => {
+    const card = createCard(item.anime);
+
+    const label = document.createElement("p");
+    label.className = "continue-label";
+    label.textContent = `Continue from episode ${item.episode}`;
+
+    card.querySelector(".card-info")?.appendChild(label);
+
+    grid.appendChild(card);
   });
 }
 
-/* =========================
-   AUTHORIZED VIDEO PLAYER
-========================= */
+function renderHistory() {
+  const grid = document.getElementById("historyGrid");
+  const empty = document.getElementById("historyEmpty");
 
-function isAllowedVideoUrl(rawUrl) {
-  if (!rawUrl) return false;
+  if (!grid) return;
 
-  try {
-    const url = new URL(rawUrl);
+  const history = getHistory()
+    .map(item => ({
+      ...item,
+      anime: findAnime(item.id)
+    }))
+    .filter(item => item.anime);
 
-    if (url.protocol !== "https:") return false;
+  renderCards(grid, history.map(item => item.anime));
 
-    const allowedHosts = [
-      "www.youtube-nocookie.com",
-      "www.youtube.com",
-      "youtube.com",
-      "www.crunchyroll.com",
-      "crunchyroll.com",
-      "www.bilibili.tv",
-      "bilibili.tv"
-    ];
-
-    return allowedHosts.includes(url.hostname);
-  } catch {
-    return false;
+  if (empty) {
+    empty.classList.toggle("hidden", history.length > 0);
   }
 }
 
-function normalizeEmbedUrl(rawUrl) {
-  const url = new URL(rawUrl);
+/* =========================================================
+   9. ANIME DETAILS DIALOG
+   ========================================================= */
 
-  if (
-    url.hostname === "youtube.com" ||
-    url.hostname === "www.youtube.com"
-  ) {
-    if (url.pathname === "/watch") {
-      const videoId = url.searchParams.get("v");
+function openDetails(id) {
+  const anime = findAnime(id);
+  if (!anime) return;
 
-      if (!videoId || !/^[\w-]{11}$/.test(videoId)) {
-        return null;
-      }
+  const dialog = document.getElementById("detailDialog");
+  const content = document.getElementById("detailContent");
 
-      return `https://www.youtube-nocookie.com/embed/${videoId}`;
-    }
+  if (!dialog || !content) return;
 
-    if (url.pathname.startsWith("/embed/")) {
-      return `https://www.youtube-nocookie.com${url.pathname}`;
-    }
-  }
+  const saved = getWatchlist().includes(id);
+  const userRating = getRatings()[id];
 
-  if (url.hostname === "www.youtube-nocookie.com") {
-    return url.pathname.startsWith("/embed/")
-      ? url.href
-      : null;
-  }
+  content.innerHTML = `
+    <div class="detail-layout">
+      <div class="detail-poster">
+        ${posterMarkup(anime)}
+      </div>
 
-  /*
-    Other streaming providers must supply an explicitly
-    supported official embed URL. Their normal watch URLs
-    are not assumed to be embeddable.
-  */
+      <div class="detail-info">
+        <p class="section-eyebrow">ANIME:P ORIGINAL DISCOVERY</p>
 
-  if (
-    url.hostname === "www.bilibili.tv" ||
-    url.hostname === "bilibili.tv"
-  ) {
-    return null;
-  }
+        <h2>${escapeHTML(anime.title)}</h2>
 
-  if (
-    url.hostname === "www.crunchyroll.com" ||
-    url.hostname === "crunchyroll.com"
-  ) {
-    return null;
-  }
+        <p class="detail-japanese">${escapeHTML(anime.japanese)}</p>
 
-  return null;
+        <div class="detail-meta">
+          <span>${anime.year}</span>
+          <span>★ ${Number(anime.rating).toFixed(1)}</span>
+          <span>${anime.status === "Movie" ? "Movie" : `${anime.episodes} episodes`}</span>
+        </div>
+
+        <div class="detail-genres">
+          ${anime.genres.map(genre =>
+            `<span>${escapeHTML(genre)}</span>`
+          ).join("")}
+        </div>
+
+        <p class="detail-description">
+          ${escapeHTML(anime.description)}
+        </p>
+
+        <div class="detail-actions">
+          <button class="btn btn-primary" data-action="episode-play" data-episode="1">
+            ▶ Episode 1
+          </button>
+
+          <button class="btn btn-ghost" data-action="toggle-list" data-id="${anime.id}">
+            ${saved ? "✓ In My List" : "＋ Add to My List"}
+          </button>
+        </div>
+
+        <div class="rating-section">
+          <label for="animeRating">Your rating</label>
+          <select id="animeRating">
+            <option value="">Rate this anime</option>
+            ${Array.from({ length: 10 }, (_, i) => i + 1).map(n =>
+              `<option value="${n}" ${userRating === n ? "selected" : ""}>${n}/10</option>`
+            ).join("")}
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="episode-section">
+      <p class="section-eyebrow">THE JOURNEY BEGINS</p>
+      <h3>Episodes</h3>
+      <div class="episode-list">
+        ${anime.episodeList.map(episode => `
+          <button
+            class="episode-row"
+            data-action="episode-play"
+            data-episode="${episode.number}"
+          >
+            <span class="episode-number">
+              ${String(episode.number).padStart(2, "0")}
+            </span>
+
+            <span class="episode-name">
+              <strong>${escapeHTML(episode.title)}</strong>
+              <small>Episode ${episode.number}</small>
+            </span>
+
+            <span class="episode-arrow">▶</span>
+          </button>
+        `).join("")}
+      </div>
+    </div>
+  `;
+
+  dialog.dataset.animeId = id;
+
+  if (!dialog.open) dialog.showModal();
 }
 
-function playEpisode(animeId, episodeNumber) {
-  const anime = getAnimeById(animeId);
+/* =========================================================
+   10. AUTHORIZED VIDEO PLAYER
+   ========================================================= */
 
+/*
+  Only configure videoId for an official video you are
+  authorized to embed. A blank ID intentionally prevents
+  playback and shows a helpful message.
+
+  A public trailer is not a substitute for a full episode.
+*/
+
+function playEpisode(id, episodeNumber) {
+  const anime = findAnime(id);
   if (!anime) return;
 
   const episode = anime.episodeList.find(
-    item => item.number === episodeNumber
+    item => item.number === Number(episodeNumber)
   );
 
   if (!episode) {
@@ -811,304 +793,352 @@ function playEpisode(animeId, episodeNumber) {
     return;
   }
 
-  const progress = getProgress();
+  addToHistory(id, episode.number);
 
-  progress[anime.id] = {
-    episode: episodeNumber,
-    updatedAt: new Date().toISOString()
-  };
-
-  writeStorage(STORAGE_KEYS.progress, progress);
-
-  if (!episode.videoUrl) {
-    showToast(
-      "No authorized video source has been configured for this episode yet."
-    );
+  if (!episode.videoId) {
+    showToast("No authorized video has been configured for this episode yet.");
     return;
   }
 
-  if (!isAllowedVideoUrl(episode.videoUrl)) {
-    showToast("This video URL is not an approved source.");
+  // Only YouTube video IDs are supported by this player.
+  if (!/^[A-Za-z0-9_-]{11}$/.test(episode.videoId)) {
+    showToast("This video ID is invalid.");
     return;
   }
 
-  const embedUrl = normalizeEmbedUrl(episode.videoUrl);
-
-  if (!embedUrl) {
-    showToast(
-      "This source does not have a supported embed URL. Open its official website instead."
-    );
-    return;
-  }
-
-  openVideoPlayer(anime, episode, embedUrl);
+  openPlayer(anime, episode);
 }
 
-function openVideoPlayer(anime, episode, embedUrl) {
-  const modal = $("#videoModal");
-  const frame = $("#videoFrame");
-  const title = $("#videoTitle");
+function openPlayer(anime, episode) {
+  const dialog = document.getElementById("playerDialog");
+  const content = document.getElementById("playerContent");
 
-  if (!modal || !frame) {
-    window.open(embedUrl, "_blank", "noopener,noreferrer");
-    return;
-  }
+  if (!dialog || !content) return;
 
-  frame.src = embedUrl;
-  frame.title = `${anime.title} — Episode ${episode.number}`;
+  const videoId = episode.videoId;
 
-  if (title) {
-    title.textContent =
-      `${anime.title} — Episode ${episode.number}: ${episode.title}`;
-  }
+  content.innerHTML = `
+    <div class="player-heading">
+      <p class="section-eyebrow">NOW PLAYING</p>
+      <h2>${escapeHTML(anime.title)}</h2>
+      <p>Episode ${episode.number}: ${escapeHTML(episode.title)}</p>
+    </div>
 
-  modal.hidden = false;
-  modal.setAttribute("aria-hidden", "false");
+    <div class="video-frame-wrap">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/${videoId}"
+        title="${escapeHTML(anime.title)} episode ${episode.number}"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
 
-  document.body.classList.add("modal-open");
+    <p class="player-notice">
+      Playback depends on the source's embedding permissions and regional availability.
+    </p>
+
+    <button class="btn btn-ghost" data-action="next-episode">
+      Next configured episode →
+    </button>
+  `;
+
+  dialog.dataset.animeId = anime.id;
+  dialog.dataset.episode = String(episode.number);
+
+  if (!dialog.open) dialog.showModal();
 }
 
-function closeVideoPlayer() {
-  const modal = $("#videoModal");
-  const frame = $("#videoFrame");
+/* =========================================================
+   11. RATINGS
+   ========================================================= */
 
-  if (frame) frame.src = "";
+function saveRating(id, rating) {
+  if (!rating) return;
 
-  if (modal) {
-    modal.hidden = true;
-    modal.setAttribute("aria-hidden", "true");
-  }
+  const numeric = Number(rating);
 
-  document.body.classList.remove("modal-open");
-}
-
-/* =========================
-   CONTINUE WATCHING
-========================= */
-
-function renderContinueWatching() {
-  const container = $("#continueWatchingGrid");
-
-  if (!container) return;
-
-  const progress = getProgress();
-
-  const items = Object.entries(progress)
-    .map(([id, data]) => ({
-      anime: getAnimeById(id),
-      episode: data.episode,
-      updatedAt: data.updatedAt
-    }))
-    .filter(item => item.anime)
-    .sort((a, b) =>
-      new Date(b.updatedAt) - new Date(a.updatedAt)
-    );
-
-  container.replaceChildren();
-
-  if (!items.length) {
-    const empty = document.createElement("p");
-    empty.className = "anime-empty-state";
-    empty.textContent = "Your recently watched anime will appear here.";
-    container.appendChild(empty);
-    return;
-  }
-
-  items.forEach(item => {
-    const button = document.createElement("button");
-
-    button.type = "button";
-    button.className = "continue-watching-item";
-
-    button.innerHTML = `
-      ${getAnimeImageMarkup(item.anime)}
-      <span>
-        <strong>${escapeHTML(item.anime.title)}</strong>
-        <small>Continue from episode ${item.episode}</small>
-      </span>
-    `;
-
-    button.addEventListener("click", () => {
-      openAnimeDetails(item.anime.id);
-    });
-
-    container.appendChild(button);
-  });
-}
-
-/* =========================
-   RATINGS
-========================= */
-
-function rateAnime(id, rating) {
-  if (!getAnimeById(id)) return;
-
-  const numericRating = Number(rating);
-
-  if (
-    !Number.isInteger(numericRating) ||
-    numericRating < 1 ||
-    numericRating > 10
-  ) {
-    showToast("Choose a rating from 1 to 10.");
+  if (!Number.isInteger(numeric) || numeric < 1 || numeric > 10) {
+    showToast("Choose a rating between 1 and 10.");
     return;
   }
 
   const ratings = getRatings();
-  ratings[id] = numericRating;
+  ratings[id] = numeric;
 
-  if (!writeStorage(STORAGE_KEYS.ratings, ratings)) return;
+  if (!saveJSON(STORAGE.ratings, ratings)) return;
 
-  showToast(`Your rating: ${numericRating}/10`);
-  renderUserRating(id);
-}
+  showToast(`Rating saved: ${numeric}/10`);
 
-function renderUserRating(id) {
-  const ratings = getRatings();
-  const rating = ratings[id];
+  const anime = findAnime(id);
 
-  const output = $("#userRating");
-
-  if (output) {
-    output.textContent = rating
-      ? `Your rating: ${rating}/10`
-      : "Rate this anime";
-  }
-
-  const select = $("#ratingSelect");
-
-  if (select && rating) {
-    select.value = String(rating);
+  if (anime) {
+    renderCurrentView();
   }
 }
 
-/* =========================
-   NAVIGATION
-========================= */
+/* =========================================================
+   12. NAVIGATION
+   ========================================================= */
 
-function showSection(sectionName) {
-  const sections = $$(".page-section, [data-section]");
+const VIEWS = {
+  home: ["hero", "homeTrending"],
+  browse: ["homeTrending"],
+  watchlist: ["watchlistSection"],
+  history: ["historySection"]
+};
 
-  sections.forEach(section => {
-    const sectionId =
-      section.dataset.section ||
-      section.id.replace(/Section$/, "").replace(/Page$/, "");
+function changeView(view) {
+  if (!VIEWS[view]) view = "home";
 
-    section.hidden = sectionId !== sectionName;
+  currentView = view;
+
+  const sections = [
+    "hero",
+    "homeTrending",
+    "watchlistSection",
+    "historySection"
+  ];
+
+  sections.forEach(id => {
+    const section = document.getElementById(id);
+    if (!section) return;
+
+    section.classList.toggle(
+      "hidden",
+      !VIEWS[view].includes(id)
+    );
   });
 
-  $$("[data-nav]").forEach(button => {
+  document.querySelectorAll("[data-view]").forEach(button => {
     button.classList.toggle(
       "active",
-      button.dataset.nav === sectionName
+      button.dataset.view === view
     );
   });
 
-  if (sectionName === "favorites") renderFavorites();
-  if (sectionName === "watchlist") renderWatchlist();
-  if (sectionName === "continue") renderContinueWatching();
-  if (sectionName === "home") updateAnimeDisplay();
+  if (view === "home" || view === "browse") {
+    renderCurrentView();
+  } else if (view === "watchlist") {
+    renderWatchlist();
+  } else if (view === "history") {
+    renderHistory();
+  }
 
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-/* =========================
-   EVENT DELEGATION
-========================= */
+/* =========================================================
+   13. SEARCH SHORTCUT
+   ========================================================= */
 
-function setupGlobalEvents() {
-  document.addEventListener("click", event => {
-    const actionButton = event.target.closest("[data-action]");
+function setupSearch() {
+  const input = document.getElementById("searchInput");
+  if (!input) return;
 
-    if (actionButton) {
-      const card = actionButton.closest("[data-anime-id]");
-      const id = card?.dataset.animeId;
+  input.addEventListener("input", () => {
+    searchQuery = input.value.trim();
 
-      switch (actionButton.dataset.action) {
-        case "favorite":
-          if (id) toggleFavorite(id);
-          return;
-
-        case "watchlist":
-          if (id) toggleWatchlist(id);
-          return;
-
-        case "details":
-          if (id) openAnimeDetails(id);
-          return;
-
-        case "close-modal":
-          closeAnimeDetails();
-          return;
-
-        case "close-video":
-          closeVideoPlayer();
-          return;
-      }
-    }
-
-    const navButton = event.target.closest("[data-nav]");
-
-    if (navButton) {
-      showSection(navButton.dataset.nav);
+    if (currentView !== "home" && currentView !== "browse") {
+      changeView("browse");
+    } else {
+      renderCurrentView();
     }
   });
-
-  const modal = $("#animeModal") || $("#animeDetailsModal");
-
-  if (modal) {
-    modal.addEventListener("click", event => {
-      if (event.target === modal) closeAnimeDetails();
-    });
-  }
-
-  const videoModal = $("#videoModal");
-
-  if (videoModal) {
-    videoModal.addEventListener("click", event => {
-      if (event.target === videoModal) closeVideoPlayer();
-    });
-  }
 
   document.addEventListener("keydown", event => {
-    if (event.key === "Escape") {
-      closeAnimeDetails();
-      closeVideoPlayer();
+    const tag = document.activeElement?.tagName;
+
+    if (
+      event.key === "/" &&
+      !["INPUT", "TEXTAREA", "SELECT"].includes(tag) &&
+      !event.ctrlKey &&
+      !event.metaKey &&
+      !event.altKey
+    ) {
+      event.preventDefault();
+      input.focus();
+    }
+
+    if (event.key === "Escape" && document.activeElement === input) {
+      input.blur();
     }
   });
 
-  const ratingSelect = $("#ratingSelect");
+  const clearButton = document.getElementById("clearFilters");
 
-  if (ratingSelect) {
-    ratingSelect.addEventListener("change", () => {
-      const modal = $("#animeModal") || $("#animeDetailsModal");
-      const id = modal?.dataset.animeId;
+  clearButton?.addEventListener("click", () => {
+    searchQuery = "";
+    selectedGenre = "All";
+    sortMode = "popular";
+    input.value = "";
 
-      if (id) rateAnime(id, ratingSelect.value);
-    });
-  }
+    renderGenres();
+    changeView("browse");
+  });
 }
 
-/* =========================
-   INITIALIZATION
-========================= */
+/* =========================================================
+   14. ALL BUTTON EVENTS
+   ========================================================= */
 
-function initializeAnimeP() {
-  setupSearch();
-  setupGlobalEvents();
+function setupEvents() {
+  document.addEventListener("click", event => {
+    const viewButton = event.target.closest("[data-view]");
 
-  updateAnimeDisplay();
-  renderFavorites();
+    if (viewButton) {
+      changeView(viewButton.dataset.view);
+      return;
+    }
+
+    const closeButton = event.target.closest("[data-close]");
+
+    if (closeButton) {
+      const dialog = document.getElementById(closeButton.dataset.close);
+
+      if (dialog?.open) dialog.close();
+
+      return;
+    }
+
+    const actionButton = event.target.closest("[data-action]");
+
+    if (!actionButton) return;
+
+    const card = actionButton.closest("[data-id]");
+    const id = actionButton.dataset.id || card?.dataset.id;
+
+    switch (actionButton.dataset.action) {
+      case "details":
+        if (id) openDetails(id);
+        break;
+
+      case "toggle-list":
+        if (id) {
+          toggleWatchlist(id);
+
+          const detailDialog = document.getElementById("detailDialog");
+
+          if (detailDialog?.open && detailDialog.dataset.animeId === id) {
+            openDetails(id);
+          }
+        }
+        break;
+
+      case "episode-play": {
+        const detailDialog = document.getElementById("detailDialog");
+        const animeId = detailDialog?.dataset.animeId;
+
+        if (animeId) playEpisode(animeId, actionButton.dataset.episode);
+
+        break;
+      }
+
+      case "next-episode": {
+        const player = document.getElementById("playerDialog");
+        const animeId = player?.dataset.animeId;
+        const episode = Number(player?.dataset.episode || 0);
+        const anime = findAnime(animeId);
+
+        const next = anime?.episodeList.find(
+          item => item.number > episode && item.videoId
+        );
+
+        if (next) {
+          openPlayer(anime, next);
+        } else {
+          showToast("No next configured episode is available.");
+        }
+
+        break;
+      }
+    }
+  });
+
+  document.getElementById("exploreButton")?.addEventListener("click", () => {
+    changeView("browse");
+    document.getElementById("homeTrending")?.scrollIntoView({
+      behavior: "smooth"
+    });
+  });
+
+  document.getElementById("heroListButton")?.addEventListener("click", () => {
+    const anime = ANIME.find(item => item.featured) || ANIME[0];
+    toggleWatchlist(anime.id);
+  });
+
+  document.getElementById("profileButton")?.addEventListener("click", () => {
+    showToast("Your Anime:P profile is saved locally on this device.");
+  });
+
+  document.getElementById("aboutButton")?.addEventListener("click", () => {
+    const dialog = document.getElementById("aboutDialog");
+
+    if (dialog && !dialog.open) dialog.showModal();
+  });
+
+  document.getElementById("detailContent")?.addEventListener("change", event => {
+    if (event.target.id !== "animeRating") return;
+
+    const dialog = document.getElementById("detailDialog");
+
+    if (dialog?.dataset.animeId) {
+      saveRating(dialog.dataset.animeId, event.target.value);
+    }
+  });
+
+  // Stop video playback when the player dialog closes.
+  document.getElementById("playerDialog")?.addEventListener("close", () => {
+    const content = document.getElementById("playerContent");
+
+    if (content) {
+      content.querySelectorAll("iframe").forEach(frame => {
+        frame.src = "about:blank";
+      });
+    }
+  });
+}
+
+/* =========================================================
+   15. OPTIONAL SORT CONTROL
+   ========================================================= */
+
+function setupOptionalSort() {
+  const select = document.getElementById("sortSelect");
+  if (!select) return;
+
+  select.addEventListener("change", () => {
+    sortMode = select.value;
+    renderCurrentView();
+  });
+}
+
+/* =========================================================
+   16. INITIALIZE
+   ========================================================= */
+
+function initAnimeP() {
+  renderGenres();
+  renderCurrentView();
+
+  updateListCount();
   renderWatchlist();
   renderContinueWatching();
+  renderHistory();
+  renderHeroListButton();
+
+  setupSearch();
+  setupEvents();
+  setupOptionalSort();
 
   console.log(
-    `Anime:P initialized — ${ANIME_DATA.length} anime loaded.`
+    `Anime:P ready — ${ANIME.length} catalogue entries loaded.`
   );
 }
 
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initializeAnimeP);
+  document.addEventListener("DOMContentLoaded", initAnimeP);
 } else {
-  initializeAnimeP();
+  initAnimeP();
 }
