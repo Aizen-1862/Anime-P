@@ -15,7 +15,6 @@ const STORAGE = {
   history: "animep_history_v1"
 };
 const JIKAN = "https://api.jikan.moe/v4";
-const FEATURED_MAL_ID = 16498; // Attack on Titan, Season 1
 const genres = ["All", "Action", "Adventure", "Fantasy", "Drama", "Comedy", "Sci-Fi", "Romance", "Mystery", "Sports", "Slice of Life"];
 
 /* Add only verified authorized sources here.
@@ -56,7 +55,6 @@ let toastTimer = null;
 let searchTimer = null;
 let searchRequest = 0;
 let catalogLoading = false;
-let featuredAnimeId = `mal-${FEATURED_MAL_ID}`;
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
@@ -80,7 +78,7 @@ function mapAnime(item) {
     language: ["Japanese audio", "Subtitles/dubs vary by provider"],
     description: item.synopsis || item.description || "Synopsis is not available from the metadata source yet.",
     poster,
-    featured: malId === FEATURED_MAL_ID,
+    featured: false,
     episodeCount,
     episodes: Array.from({ length: Math.min(episodeCount, 24) }, (_, index) => ({
       number: index + 1,
@@ -121,11 +119,11 @@ function posterMarkup(anime, extraClass = "") {
 function cardMarkup(anime) {
   const saved = getWatchlist().includes(anime.id);
   const history = getHistory().find(entry => entry.id === anime.id);
-  const progress = history ? `EP ${history.episode}` : (anime.featured ? "FEATURED" : "DISCOVER");
+  const progress = history ? `EP ${history.episode}` : "DISCOVER";
   return `<article class="anime-card" data-anime="${escapeHTML(anime.id)}">
     <div class="poster" data-open="${escapeHTML(anime.id)}">
       ${posterMarkup(anime)}<div class="poster-overlay"></div>
-      <div class="poster-top"><span class="tag ${anime.featured ? "featured" : ""}">${anime.featured ? "FEATURED" : escapeHTML(String(anime.type).toUpperCase())}</span>
+      <div class="poster-top"><span class="tag">${escapeHTML(String(anime.type).toUpperCase())}</span>
       <button class="heart-btn ${saved ? "saved" : ""}" data-favorite="${escapeHTML(anime.id)}" aria-label="${saved ? "Remove from" : "Add to"} watchlist" title="${saved ? "Remove from" : "Add to"} watchlist">${saved ? "♥" : "♡"}</button></div>
       <div class="poster-bottom"><span>${escapeHTML(progress)}</span><span class="rating">☆ ${escapeHTML(anime.rating)}</span></div>
     </div>
@@ -215,7 +213,7 @@ function openDetails(id) {
   const count = Math.min(anime.episodeCount || anime.episodes.length, 24);
   const episodes = anime.episodes.slice(0, count).map(episode => {
     const sources = getSources(anime, episode.number);
-    return `<div class="episode-item"><div class="episode-number">${String(episode.number).padStart(2, "0")}</div><div><strong>${escapeHTML(episode.title)}</strong><small>${escapeHTML(episode.duration)} · ${sources.length ? "Verified source configured" : "Find an authorized stream"}</small></div><button data-play="${escapeHTML(id)}" data-episode="${episode.number}">▶ ${sources.length ? "Watch" : "Find stream"}</button></div>`;
+    return `<div class="episode-item"><div class="episode-number">${String(episode.number).padStart(2, "0")}</div><div><strong>${escapeHTML(episode.title)}</strong><small>${escapeHTML(episode.duration)} · ${sources.length ? "Authorized source available" : "Open player and viewing options"}</small></div><button data-play="${escapeHTML(id)}" data-episode="${episode.number}">▶ Watch</button></div>`;
   }).join("");
   $("#detailContent").innerHTML = `<div class="detail-layout">
     <div class="detail-poster">${posterMarkup(anime)}</div>
@@ -249,7 +247,7 @@ function openPlayer(id, episodeNumber) {
   const embedSource = sources.find(source => source.type === "youtube" || source.type === "licensed-embed");
   const embed = embedSource ? buildEmbed(embedSource, anime, episode) : null;
   const externalSource = sources.find(source => source.type === "external" && source.url && /^https:\/\//.test(source.url));
-  const embedMarkup = embed ? `<iframe src="${escapeHTML(embed.url)}" title="${escapeHTML(anime.title)} — ${escapeHTML(episode.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>` : `<div class="player-empty"><div class="player-empty-icon">▷</div><h3>No verified in-site player yet</h3><p>Anime:P only embeds sources that have been checked for authorization. Choose an official free channel or a licensed service below.</p></div>`;
+  const embedMarkup = embed ? `<iframe src="${escapeHTML(embed.url)}" title="${escapeHTML(anime.title)} — ${escapeHTML(episode.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>` : `<div class="player-empty"><div class="player-empty-icon">▷</div><h3>No in-site stream available yet</h3><p>Anime:P only embeds sources that have been checked for authorization. Check the official free channels or licensed services below.</p></div>`;
   const fallbackLink = embed ? `<a class="btn btn-primary" href="${escapeHTML(embed.externalUrl)}" target="_blank" rel="noopener noreferrer">Open source directly ↗</a>` : (externalSource ? `<a class="btn btn-primary" href="${escapeHTML(externalSource.url)}" target="_blank" rel="noopener noreferrer">Open official source ↗</a>` : "");
   $("#playerContent").innerHTML = `<div class="player-wrap"><p class="section-eyebrow">ANIME:P PLAYER</p><h2>${escapeHTML(anime.title)} · ${escapeHTML(episode.title)}</h2><p>Official free streams and licensed providers, where available.</p><div class="video-frame ${embed ? "has-embed" : ""}">${embedMarkup}</div>
     <div class="player-actions">${fallbackLink}<button class="btn btn-ghost" data-close="playerDialog">Back to episodes</button></div>
@@ -275,11 +273,9 @@ function mergeCatalog(items) {
   const byId = new Map(animeCatalog.map(item => [item.id, item]));
   mapped.forEach(item => {
     const old = byId.get(item.id);
-    byId.set(item.id, { ...old, ...item, featured: item.malId === FEATURED_MAL_ID || Boolean(old?.featured) });
+    byId.set(item.id, { ...old, ...item, featured: false });
   });
   animeCatalog = [...byId.values()];
-  const featured = getAnime(featuredAnimeId);
-  if (featured) featured.featured = true;
 }
 async function loadInitialCatalog() {
   catalogLoading = true;
@@ -289,50 +285,13 @@ async function loadInitialCatalog() {
     mergeCatalog(popular);
     renderAll();
   } catch (error) {
-    console.warn("Anime:P is using its offline starter catalog:", error);
+    console.warn("Anime:P is using its starter catalog:", error);
     const status = $("#catalogStatus");
     if (status) status.textContent = "Showing starter catalog · live metadata is temporarily unavailable";
   } finally {
     catalogLoading = false;
     renderAll();
   }
-  // Refresh the Attack on Titan feature after the first request to respect API rate limits.
-  try {
-    await new Promise(resolve => setTimeout(resolve, 1200));
-    const result = await fetchJikan(`${JIKAN}/anime/${FEATURED_MAL_ID}/full`);
-    if (result[0]) {
-      const featured = mapAnime(result[0]);
-      featured.featured = true;
-      mergeCatalog([result[0]]);
-      featuredAnimeId = featured.id;
-      updateHero(featured);
-      renderAll();
-    }
-  } catch (error) {
-    const featured = getAnime(featuredAnimeId);
-    if (featured) updateHero(featured);
-  }
-}
-function updateHero(anime) {
-  if (!anime) return;
-  const title = $("#heroTitle");
-  const description = $("#heroDescription");
-  const poster = $("#heroPoster");
-  const rating = $("#heroRating");
-  if (title) title.innerHTML = `${escapeHTML(anime.title)}<span>.</span>`;
-  if (description) description.textContent = anime.description;
-  const heroFallback = $(".hero-poster-fallback");
-  if (poster && anime.poster) {
-    poster.src = anime.poster;
-    poster.alt = `${anime.title} poster`;
-    poster.classList.remove("hidden");
-    heroFallback?.classList.add("hidden");
-  } else {
-    poster?.classList.add("hidden");
-    heroFallback?.classList.remove("hidden");
-  }
-  if (rating) rating.textContent = anime.rating !== "—" ? `★ ${anime.rating} · FEATURED` : "FEATURED ANIME";
-  // Hero buttons are handled directly below; avoid duplicate delegated clicks.
 }
 async function searchRemote(query) {
   const requestId = ++searchRequest;
@@ -383,11 +342,7 @@ $("#searchInput")?.addEventListener("input", () => {
   searchTimer = setTimeout(() => searchRemote(query), 500);
 });
 $("#exploreButton")?.addEventListener("click", () => setView("browse"));
-$("#heroListButton")?.addEventListener("click", () => toggleWatchlist(featuredAnimeId));
-$("#heroWatchButton")?.addEventListener("click", event => {
-  const id = event.currentTarget.dataset.open || featuredAnimeId;
-  openDetails(id);
-});
+$("#heroListButton")?.addEventListener("click", () => setView("watchlist"));
 $("#clearFilters")?.addEventListener("click", () => { $("#searchInput").value = ""; activeGenre = "All"; renderCatalog(); });
 $("#aboutButton")?.addEventListener("click", () => $("#aboutDialog")?.showModal());
 $("#profileButton")?.addEventListener("click", () => showToast("Your list and history are saved in this browser — no account needed."));
@@ -398,6 +353,4 @@ document.addEventListener("keydown", event => {
 $$("dialog").forEach(dialog => dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); }));
 
 renderAll();
-const initialFeatured = getAnime(featuredAnimeId);
-if (initialFeatured) updateHero(initialFeatured);
 loadInitialCatalog();
