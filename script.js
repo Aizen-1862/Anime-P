@@ -2,10 +2,10 @@
 "use strict";
 
 const API = "https://api.jikan.moe/v4";
-const PAGE_SIZE = 25;
+const PAGE_SIZE = 24;
 
-const $ = (selector, root = document) => root.querySelector(selector);
-const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+const $ = (s, root = document) => root.querySelector(s);
+const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 
 const state = {
   view: "home",
@@ -16,39 +16,35 @@ const state = {
   hasMore: true,
   anime: [],
   byId: new Map(),
-  watchlist: loadStorage("animePWatchlist", []),
-  history: loadStorage("animePHistory", []),
-  activeAnime: null
+  watchlist: readStore("animePWatchlist"),
+  history: readStore("animePHistory")
 };
 
-function loadStorage(key, fallback) {
+function readStore(key) {
   try {
-    const result = JSON.parse(localStorage.getItem(key));
-    return Array.isArray(result) ? result : fallback;
+    const value = JSON.parse(localStorage.getItem(key) || "[]");
+    return Array.isArray(value) ? value : [];
   } catch {
-    return fallback;
+    return [];
   }
 }
 
-function saveStorage(key, value) {
+function writeStore(key, value) {
   try {
     localStorage.setItem(key, JSON.stringify(value));
   } catch {
-    showToast("Browser storage is unavailable.");
+    toast("Couldn't save browser data.");
   }
 }
 
 function escapeHTML(value = "") {
-  return String(value).replace(/[&<>"']/g, character => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[character]);
+  return String(value).replace(/[&<>"']/g, ch => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;",
+    '"': "&quot;", "'": "&#39;"
+  })[ch]);
 }
 
-function safeImageUrl(value) {
+function validURL(value) {
   try {
     const url = new URL(value);
     return url.protocol === "https:" ? url.href : "";
@@ -59,136 +55,130 @@ function safeImageUrl(value) {
 
 let toastTimer;
 
-function showToast(message) {
-  const toast = $("#toast");
-  if (!toast) return;
-
-  toast.textContent = message;
-  toast.classList.add("show");
-
+function toast(message) {
+  const el = $("#toast");
+  if (!el) return;
+  el.textContent = message;
+  el.classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+  toastTimer = setTimeout(() => el.classList.remove("show"), 2400);
 }
 
-function normaliseAnime(item) {
+function normalise(item) {
   return {
     id: Number(item.mal_id),
     title: item.title_english || item.title || "Untitled anime",
-    japaneseTitle: item.title_japanese || "",
-    image: safeImageUrl(
+    japanese: item.title_japanese || "",
+    image: validURL(
       item.images?.webp?.large_image_url ||
       item.images?.jpg?.large_image_url ||
-      item.images?.webp?.image_url ||
-      ""
+      item.images?.webp?.image_url || ""
     ),
     score: Number(item.score) || 0,
     year: item.year || item.aired?.prop?.from?.year || "",
     episodes: item.episodes || null,
     status: item.status || "Unknown",
-    synopsis: item.synopsis || "No synopsis is available for this title yet.",
+    synopsis: item.synopsis || "No description is available yet.",
     genres: [
       ...(item.genres || []),
       ...(item.themes || [])
-    ].map(genre => genre.name).filter(Boolean),
+    ].map(x => x.name).filter(Boolean),
     rating: item.rating || "",
     type: item.type || "Anime",
-    trailer: safeImageUrl(item.trailer?.images?.maximum_image_url || ""),
-    trailerUrl: safeImageUrl(item.trailer?.url || ""),
-    url: safeImageUrl(item.url || ""),
-    studios: (item.studios || []).map(studio => studio.name),
-    source: item.source || "",
-    duration: item.duration || "",
-    season: item.season || ""
+    studios: (item.studios || []).map(x => x.name),
+    trailer: validURL(item.trailer?.url || ""),
+    malURL: validURL(item.url || "")
   };
 }
 
-function genreLabel(anime) {
+function isSaved(id) {
+  return state.watchlist.some(x => Number(x.id) === Number(id));
+}
+
+function genresText(anime) {
   return anime.genres.slice(0, 2).join(" · ") || anime.type || "Anime";
 }
 
-function isSaved(id) {
-  return state.watchlist.some(item => Number(item.id) === Number(id));
-}
-
-function updateListCount() {
-  $("#listCount").textContent = String(state.watchlist.length);
-}
-
-function fallbackPoster(anime) {
+function fallbackMarkup(anime) {
   return `
     <div class="poster-fallback">
       <span class="fallback-symbol">✦</span>
       <strong>${escapeHTML(anime.title)}</strong>
-      <small>ANIME:P DISCOVERY</small>
+      <small>ANIME:P</small>
     </div>`;
 }
 
 function posterMarkup(anime, detail = false) {
-  const image = safeImageUrl(anime.image);
-  const cls = detail ? "detail-poster" : "poster";
-  const img = image
-    ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(anime.title)}" loading="lazy" onerror="this.remove()">`
+  const image = anime.image
+    ? `<img src="${escapeHTML(anime.image)}"
+        alt="${escapeHTML(anime.title)}"
+        loading="lazy"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
     : "";
 
   return `
-    <div class="${cls}">
-      ${img}
-      ${fallbackPoster(anime)}
+    <div class="${detail ? "detail-poster" : "poster"}">
+      ${image}
+      ${fallbackMarkup(anime)}
     </div>`;
 }
 
 function cardMarkup(anime) {
   const saved = isSaved(anime.id);
   const score = anime.score ? anime.score.toFixed(1) : "—";
-  const year = anime.year || "Anime";
-  const episodes = anime.episodes ? `${anime.episodes} EP` : "Episodes TBA";
 
   return `
     <article class="anime-card" data-id="${anime.id}">
       <div class="poster">
-        ${anime.image ? `<img src="${escapeHTML(anime.image)}" alt="${escapeHTML(anime.title)}" loading="lazy" onerror="this.style.display='none'">` : ""}
-        ${fallbackPoster(anime)}
+        ${anime.image ? `
+          <img src="${escapeHTML(anime.image)}"
+            alt="${escapeHTML(anime.title)}"
+            loading="lazy"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        ` : ""}
+        ${fallbackMarkup(anime)}
         <div class="poster-overlay"></div>
         <div class="poster-top">
-          <span class="tag">${escapeHTML(anime.type || "ANIME")}</span>
-          <button class="heart-btn ${saved ? "saved" : ""}" data-action="toggle-list" data-id="${anime.id}" aria-label="${saved ? "Remove from" : "Add to"} watchlist" aria-pressed="${saved}">${saved ? "♥" : "♡"}</button>
+          <span class="tag">${escapeHTML(anime.type)}</span>
+          <button class="heart-btn ${saved ? "saved" : ""}"
+            data-action="save" data-id="${anime.id}"
+            aria-label="${saved ? "Remove from watchlist" : "Add to watchlist"}">${saved ? "♥" : "♡"}</button>
         </div>
         <div class="poster-bottom">
-          <span>${escapeHTML(String(year))}</span>
+          <span>${escapeHTML(String(anime.year || "Anime"))}</span>
           <span class="rating">★ ${score}</span>
         </div>
       </div>
       <div class="card-info">
         <h3 class="card-title">${escapeHTML(anime.title)}</h3>
         <div class="card-subtitle">
-          <span>${escapeHTML(genreLabel(anime))}</span>
-          <span>${escapeHTML(String(episodes))}</span>
+          <span>${escapeHTML(genresText(anime))}</span>
+          <span>${anime.episodes || "—"} EP</span>
         </div>
         <div class="card-actions">
-          <button class="mini-btn watch" data-action="details" data-id="${anime.id}">View details</button>
-          <button class="mini-btn" data-action="toggle-list" data-id="${anime.id}">${saved ? "♥ Saved" : "♡ Save"}</button>
+          <button class="mini-btn watch" data-action="details" data-id="${anime.id}">Details</button>
+          <button class="mini-btn" data-action="save" data-id="${anime.id}">${saved ? "♥ Saved" : "♡ Save"}</button>
         </div>
       </div>
     </article>`;
 }
 
-async function fetchAnime(url) {
-  const response = await fetch(url, {
-    headers: { "Accept": "application/json" }
-  });
+async function requestAnime(url) {
+  const response = await fetch(url);
+
+  if (response.status === 429) {
+    throw new Error("Catalogue busy. Wait a few seconds and try again.");
+  }
 
   if (!response.ok) {
-    if (response.status === 429) {
-      throw new Error("The anime catalogue is busy. Wait a moment and try again.");
-    }
-    throw new Error(`Catalogue request failed (${response.status}).`);
+    throw new Error("Couldn't reach the anime catalogue. Try again shortly.");
   }
 
   const json = await response.json();
   return json.data || [];
 }
 
-async function loadAnime({ reset = false } = {}) {
+async function loadAnime(reset = false) {
   if (state.loading) return;
   if (!state.hasMore && !reset) return;
 
@@ -201,38 +191,41 @@ async function loadAnime({ reset = false } = {}) {
   }
 
   state.loading = true;
-  $("#statusMessage").textContent = "Finding anime for you...";
+  $("#statusMessage").textContent = "Loading anime...";
   $("#loadMoreButton").disabled = true;
 
   try {
-    let endpoint;
+    let url;
 
-    if (state.query.trim()) {
-      endpoint = `${API}/anime?q=${encodeURIComponent(state.query.trim())}&page=${state.page}&limit=${PAGE_SIZE}&sfw=true`;
+    if (state.query) {
+      url = `${API}/anime?q=${encodeURIComponent(state.query)}&page=${state.page}&limit=${PAGE_SIZE}&sfw=true`;
     } else {
-      endpoint = `${API}/top/anime?page=${state.page}&limit=${PAGE_SIZE}&filter=bypopularity`;
+      // Popular titles first, with more pages available.
+      url = `${API}/top/anime?page=${state.page}&limit=${PAGE_SIZE}&filter=bypopularity`;
     }
 
-    const items = await fetchAnime(endpoint);
-    const normalized = items.map(normaliseAnime).filter(anime => anime.id);
+    const items = await requestAnime(url);
+    const results = items.map(normalise).filter(x => x.id);
 
-    normalized.forEach(anime => state.byId.set(anime.id, anime));
+    results.forEach(anime => state.byId.set(anime.id, anime));
 
-    if (normalized.length === 0) state.hasMore = false;
+    const existing = new Set(state.anime.map(x => x.id));
+    results.forEach(anime => {
+      if (!existing.has(anime.id)) state.anime.push(anime);
+    });
 
-    state.anime.push(...normalized);
-    state.page += 1;
+    state.hasMore = items.length >= PAGE_SIZE;
+    state.page++;
 
     renderCatalogue();
 
-    state.hasMore = items.length >= PAGE_SIZE;
     $("#statusMessage").textContent = state.anime.length
-      ? `${state.anime.length} anime loaded · More titles await`
-      : "No anime found. Try another search.";
+      ? `${state.anime.length} titles loaded`
+      : "No anime found. Try a different search.";
 
     $("#loadMoreButton").classList.toggle("hidden", !state.hasMore);
   } catch (error) {
-    $("#statusMessage").textContent = error.message || "Couldn't load the anime catalogue.";
+    $("#statusMessage").textContent = error.message;
     if (!state.anime.length) {
       $("#animeGrid").innerHTML = "";
       $("#emptyState").classList.remove("hidden");
@@ -243,50 +236,43 @@ async function loadAnime({ reset = false } = {}) {
   }
 }
 
-function filteredAnime(items) {
-  let result = [...items];
+function applyGenre(items) {
+  if (state.genre === "all") return items;
 
-  if (state.genre !== "all") {
-    result = result.filter(anime =>
-      anime.genres.some(genre =>
-        genre.toLowerCase() === state.genre.toLowerCase()
-      )
-    );
-  }
-
-  return result;
+  return items.filter(anime =>
+    anime.genres.some(g => g.toLowerCase() === state.genre.toLowerCase())
+  );
 }
 
 function renderCatalogue() {
-  const items = filteredAnime(state.anime);
+  const items = applyGenre(state.anime);
   $("#animeGrid").innerHTML = items.map(cardMarkup).join("");
-  $("#emptyState").classList.toggle("hidden", items.length > 0);
+  $("#emptyState").classList.toggle("hidden", items.length !== 0);
+  $("#collectionTitle").textContent = state.query
+    ? "Search Results"
+    : state.view === "browse" ? "Discover Anime" : "Popular Anime";
+}
+
+function findStoredAnime(id) {
+  return state.byId.get(Number(id)) ||
+    state.watchlist.find(x => Number(x.id) === Number(id)) ||
+    state.history.find(x => Number(x.id) === Number(id));
 }
 
 function renderWatchlist() {
-  const items = state.watchlist
-    .map(item => state.byId.get(Number(item.id)) || item)
-    .filter(item => item && item.id);
-
+  const items = state.watchlist;
   $("#watchlistGrid").innerHTML = items.map(cardMarkup).join("");
   $("#watchlistEmpty").classList.toggle("hidden", items.length > 0);
-  updateListCount();
+  $("#listCount").textContent = String(items.length);
 }
 
 function renderHistory() {
-  const items = state.history
-    .map(item => state.byId.get(Number(item.id)) || item)
-    .filter(item => item && item.id);
-
-  $("#historyGrid").innerHTML = items.map(cardMarkup).join("");
-  $("#historyEmpty").classList.toggle("hidden", items.length > 0);
+  $("#historyGrid").innerHTML = state.history.map(cardMarkup).join("");
+  $("#historyEmpty").classList.toggle("hidden", state.history.length > 0);
 }
 
 function renderContinue() {
-  const items = state.history.slice(0, 10)
-    .map(item => state.byId.get(Number(item.id)) || item)
-    .filter(item => item && item.id);
-
+  const items = state.history.slice(0, 12);
   $("#continueGrid").innerHTML = items.map(cardMarkup).join("");
   $("#continueSection").classList.toggle("hidden", items.length === 0);
 }
@@ -305,71 +291,61 @@ function changeView(view) {
 
   if (view === "watchlist") renderWatchlist();
   if (view === "history") renderHistory();
+  if (view === "browse" || view === "home") renderCatalogue();
 
-  if (view === "browse") {
-    $("#collectionTitle").textContent = state.query ? "Search Results" : "Discover Anime";
-  } else {
-    $("#collectionTitle").textContent = state.query ? "Search Results" : "Trending Anime";
-  }
-
-  if (view !== "home") {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function toggleWatchlist(id) {
-  const numericId = Number(id);
-  const found = state.byId.get(numericId) ||
-    state.watchlist.find(item => Number(item.id) === numericId) ||
-    state.history.find(item => Number(item.id) === numericId);
-
-  if (!found) return;
-
-  if (isSaved(numericId)) {
-    state.watchlist = state.watchlist.filter(item => Number(item.id) !== numericId);
-    showToast("Removed from your watchlist.");
-  } else {
-    state.watchlist.unshift(found);
-    showToast("Added to your watchlist ♥");
+function toggleSave(id) {
+  const anime = findStoredAnime(id);
+  if (!anime) {
+    toast("Anime details haven't loaded yet.");
+    return;
   }
 
-  saveStorage("animePWatchlist", state.watchlist);
-  updateListCount();
+  if (isSaved(id)) {
+    state.watchlist = state.watchlist.filter(x => Number(x.id) !== Number(id));
+    toast("Removed from My List.");
+  } else {
+    state.watchlist.unshift(anime);
+    toast("Added to My List ♥");
+  }
+
+  writeStore("animePWatchlist", state.watchlist);
   renderCatalogue();
   renderWatchlist();
   renderHistory();
   renderContinue();
 
-  if (state.activeAnime?.id === numericId) openDetails(found.id);
+  if ($("#detailDialog").open && state.activeId === Number(id)) {
+    openDetails(id);
+  }
 }
 
-function addHistory(anime) {
+function addToHistory(anime) {
   state.history = [
     anime,
-    ...state.history.filter(item => Number(item.id) !== Number(anime.id))
-  ].slice(0, 30);
+    ...state.history.filter(x => Number(x.id) !== Number(anime.id))
+  ].slice(0, 40);
 
-  saveStorage("animePHistory", state.history);
+  writeStore("animePHistory", state.history);
   renderHistory();
   renderContinue();
 }
 
+let activeId = null;
+
 function openDetails(id) {
-  const anime = state.byId.get(Number(id)) ||
-    state.watchlist.find(item => Number(item.id) === Number(id)) ||
-    state.history.find(item => Number(item.id) === Number(id));
+  const anime = findStoredAnime(id);
+  if (!anime) return;
 
-  if (!anime) {
-    showToast("Anime details are not available yet.");
-    return;
-  }
+  activeId = Number(id);
+  addToHistory(anime);
 
-  state.activeAnime = anime;
-  addHistory(anime);
-
-  const genres = anime.genres.slice(0, 8);
-  const synopsis = anime.synopsis || "No synopsis is available yet.";
   const score = anime.score ? anime.score.toFixed(1) : "Not rated";
+  const tags = anime.genres.slice(0, 8)
+    .map(g => `<span class="tag">${escapeHTML(g)}</span>`)
+    .join("");
 
   $("#detailContent").innerHTML = `
     <div class="detail-layout">
@@ -377,52 +353,45 @@ function openDetails(id) {
       <div class="detail-copy">
         <span class="eyebrow">ANIME:P DISCOVERY</span>
         <h2>${escapeHTML(anime.title)}</h2>
-        ${anime.japaneseTitle ? `<p>${escapeHTML(anime.japaneseTitle)}</p>` : ""}
-        <div class="detail-rating">★ ${escapeHTML(score)} <span style="color:var(--muted)">· ${escapeHTML(String(anime.year || "Year unknown"))}</span></div>
-        <div class="detail-tags">
-          ${genres.map(genre => `<span class="tag">${escapeHTML(genre)}</span>`).join("")}
-          <span class="tag">${escapeHTML(anime.type)}</span>
-          ${anime.rating ? `<span class="tag">${escapeHTML(anime.rating)}</span>` : ""}
-        </div>
-        <p>${escapeHTML(synopsis)}</p>
+        ${anime.japanese ? `<p>${escapeHTML(anime.japanese)}</p>` : ""}
+        <div class="detail-rating">★ ${score} · ${escapeHTML(String(anime.year || "Year unknown"))}</div>
+        <div class="detail-tags">${tags}<span class="tag">${escapeHTML(anime.type)}</span></div>
+        <p>${escapeHTML(anime.synopsis)}</p>
         <div class="detail-actions">
-          <button class="btn btn-primary" data-action="official" data-id="${anime.id}">Find official streams ↗</button>
-          <button class="btn btn-secondary" data-action="toggle-list" data-id="${anime.id}">${isSaved(anime.id) ? "♥ Saved" : "♡ Add to list"}</button>
+          <button class="btn btn-primary" data-action="official" data-id="${anime.id}">Find where to watch ↗</button>
+          <button class="btn btn-secondary" data-action="save" data-id="${anime.id}">${isSaved(id) ? "♥ Saved" : "♡ My List"}</button>
+          ${anime.malURL ? `<a class="btn btn-secondary" href="${escapeHTML(anime.malURL)}" target="_blank" rel="noopener noreferrer">More info ↗</a>` : ""}
         </div>
       </div>
     </div>
-    <h3 class="episode-title">About this anime</h3>
+    <h3 class="episode-title">Anime information</h3>
     <div class="episode-list">
       <div class="episode-item">
         <span class="episode-number">★</span>
-        <div><strong>Community score</strong><small>${escapeHTML(score)}</small></div>
+        <div><strong>Community rating</strong><small>${score}</small></div>
       </div>
       <div class="episode-item">
         <span class="episode-number">EP</span>
-        <div><strong>Episode count</strong><small>${escapeHTML(String(anime.episodes || "Not announced"))}</small></div>
+        <div><strong>Episodes</strong><small>${anime.episodes || "Not announced"}</small></div>
       </div>
       <div class="episode-item">
         <span class="episode-number">▶</span>
-        <div><strong>Streaming availability</strong><small>Check licensed services in your region. Availability may vary.</small></div>
-        <button class="btn btn-secondary" data-action="official" data-id="${anime.id}">Find</button>
+        <div><strong>Streaming</strong><small>Availability depends on your region and provider.</small></div>
+        <button class="mini-btn" data-action="official" data-id="${anime.id}">Find</button>
       </div>
     </div>
-    <p class="section-description">Anime:P provides discovery information. Episodes are not hosted on this website.</p>
+    <p class="section-description">Anime:P is an anime discovery catalogue and does not host video episodes.</p>
   `;
 
   $("#detailDialog").showModal();
 }
 
-function openOfficialSearch(id) {
-  const anime = state.byId.get(Number(id)) ||
-    state.watchlist.find(item => Number(item.id) === Number(id)) ||
-    state.history.find(item => Number(item.id) === Number(id));
-
+function officialSearch(id) {
+  const anime = findStoredAnime(id);
   if (!anime) return;
 
-  const search = encodeURIComponent(`${anime.title} official streaming`);
-  window.open(`https://www.google.com/search?q=${search}`, "_blank", "noopener,noreferrer");
-  showToast("Search results opened. Choose an official streaming provider.");
+  const query = encodeURIComponent(`${anime.title} official streaming watch`);
+  window.open(`https://www.google.com/search?q=${query}`, "_blank", "noopener,noreferrer");
 }
 
 function closeDialog(id) {
@@ -432,9 +401,9 @@ function closeDialog(id) {
 
 function setupEvents() {
   document.addEventListener("click", event => {
-    const closeButton = event.target.closest("[data-close]");
-    if (closeButton) {
-      closeDialog(closeButton.dataset.close);
+    const close = event.target.closest("[data-close]");
+    if (close) {
+      closeDialog(close.dataset.close);
       return;
     }
 
@@ -448,11 +417,9 @@ function setupEvents() {
     const genreButton = event.target.closest("[data-genre]");
     if (genreButton) {
       state.genre = genreButton.dataset.genre;
-
       $$(".genre-chip").forEach(button => {
         button.classList.toggle("active", button === genreButton);
       });
-
       renderCatalogue();
       return;
     }
@@ -460,21 +427,21 @@ function setupEvents() {
     const actionButton = event.target.closest("[data-action]");
     if (actionButton) {
       const id = Number(actionButton.dataset.id);
-      const action = actionButton.dataset.action;
 
-      if (action === "toggle-list") toggleWatchlist(id);
-      if (action === "details") openDetails(id);
-      if (action === "official") openOfficialSearch(id);
+      if (actionButton.dataset.action === "save") toggleSave(id);
+      if (actionButton.dataset.action === "details") openDetails(id);
+      if (actionButton.dataset.action === "official") officialSearch(id);
       return;
     }
 
     const card = event.target.closest(".anime-card");
-    if (card && card.dataset.id) openDetails(Number(card.dataset.id));
+    if (card) openDetails(Number(card.dataset.id));
   });
 
   $("#exploreButton").addEventListener("click", () => changeView("browse"));
   $("#heroListButton").addEventListener("click", () => changeView("watchlist"));
   $("#aboutButton").addEventListener("click", () => $("#aboutDialog").showModal());
+  $("#loadMoreButton").addEventListener("click", () => loadAnime());
 
   $("#clearFilters").addEventListener("click", () => {
     state.query = "";
@@ -484,17 +451,15 @@ function setupEvents() {
       button.classList.toggle("active", button.dataset.genre === "all");
     });
     changeView("browse");
-    loadAnime({ reset: true });
+    loadAnime(true);
   });
-
-  $("#loadMoreButton").addEventListener("click", () => loadAnime());
 
   $("#clearHistoryButton").addEventListener("click", () => {
     state.history = [];
-    saveStorage("animePHistory", []);
+    writeStore("animePHistory", []);
     renderHistory();
     renderContinue();
-    showToast("Viewing history cleared.");
+    toast("History cleared.");
   });
 
   let searchTimer;
@@ -503,23 +468,18 @@ function setupEvents() {
     state.query = event.target.value.trim();
     changeView("browse");
 
-    searchTimer = setTimeout(() => {
-      loadAnime({ reset: true });
-    }, state.query ? 550 : 200);
+    searchTimer = setTimeout(() => loadAnime(true), state.query ? 500 : 200);
   });
 
   document.addEventListener("keydown", event => {
-    if (event.key === "/" && !["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) {
+    if (event.key === "/" &&
+        !["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) {
       event.preventDefault();
       $("#searchInput").focus();
     }
-
-    if (event.key === "Escape") {
-      ["detailDialog", "playerDialog", "aboutDialog"].forEach(closeDialog);
-    }
   });
 
-  ["detailDialog", "playerDialog", "aboutDialog"].forEach(id => {
+  ["detailDialog", "aboutDialog", "playerDialog"].forEach(id => {
     const dialog = document.getElementById(id);
     dialog.addEventListener("click", event => {
       if (event.target === dialog) dialog.close();
@@ -527,11 +487,11 @@ function setupEvents() {
   });
 }
 
-function startApp() {
-  updateListCount();
+function start() {
+  $("#listCount").textContent = String(state.watchlist.length);
   renderContinue();
   setupEvents();
-  loadAnime({ reset: true });
+  loadAnime(true);
 }
 
-startApp();
+start();
