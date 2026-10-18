@@ -526,7 +526,16 @@ function renderEpisodeList(anime, episodes, totalEpisodes) {
   const container = getEpisodeListContainer();
   if (!container) return;
 
-  if (!episodes.length) {
+  // The catalogue API groups both cours under Season 3 (22 episodes), while
+  // Anime:P has a separate Season 3 Part 2 entry. Keep Part 1 to episodes 1–12
+  // so episodes 13–22 appear only in the Part 2 entry.
+  const isAttackOnTitanSeason3 = Number(anime.id) === 35760;
+  const listedEpisodes = isAttackOnTitanSeason3
+    ? episodes.filter((episode) => Number(episode.mal_id) <= 12)
+    : episodes;
+  const displayedTotal = isAttackOnTitanSeason3 ? 12 : totalEpisodes;
+
+  if (!listedEpisodes.length) {
     container.innerHTML = `
       <p class="fine-print">
         Episode names are not available from the catalogue right now.
@@ -542,8 +551,8 @@ function renderEpisodeList(anime, episodes, totalEpisodes) {
   const note = document.createElement("p");
   note.className = "fine-print";
   note.textContent =
-    `Showing ${episodes.length} listed episode${episodes.length === 1 ? "" : "s"}` +
-    (totalEpisodes ? ` out of ${totalEpisodes}.` : ".") +
+    `Showing ${listedEpisodes.length} listed episode${listedEpisodes.length === 1 ? "" : "s"}` +
+    (displayedTotal ? ` out of ${displayedTotal}.` : ".") +
     " Play buttons open provider search results; availability varies.";
 
   const list = document.createElement("div");
@@ -551,7 +560,7 @@ function renderEpisodeList(anime, episodes, totalEpisodes) {
   list.style.display = "grid";
   list.style.gap = "10px";
 
-  list.innerHTML = episodes.map((episode) => {
+  list.innerHTML = listedEpisodes.map((episode) => {
     const number = Number(episode.mal_id) || 0;
     const title = episode.title || `Episode ${number || ""}`;
     const searches = makeProviderSearches(anime, number || null);
@@ -606,10 +615,11 @@ async function loadEpisodeInfo(anime, requestId) {
 
     const episodes = result.data || [];
     const total = result.pagination?.items?.total || anime.episodes || null;
+    const displayedTotal = Number(anime.id) === 35760 ? 12 : total;
 
     if (info) {
-      info.textContent = total
-        ? `${total} episode${total === 1 ? "" : "s"} listed in the catalogue.`
+      info.textContent = displayedTotal
+        ? `${displayedTotal} episode${displayedTotal === 1 ? "" : "s"} listed in the catalogue.`
         : "Episode information from the catalogue.";
     }
 
