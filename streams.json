@@ -1,9 +1,8 @@
-
 {
-  "123": {
+  "ACTUAL_ANIME_ID": {
     "1": {
       "provider": "youtube",
-      "videoId": "REPLACE_WITH_VERIFIED_VIDEO_ID",
+      "videoId": "REAL_11_CHARACTER_ID",
       "title": "Episode 1"
     }
   }
