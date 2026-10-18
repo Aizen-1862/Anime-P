@@ -1,105 +1,610 @@
 {
   "16498": {
-    "1": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"O1hbt4c1X9o"},
-    "2": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"jGldyw-V6Zk"},
-    "3": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"sgGWPzqVwnc"},
-    "4": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"Am7WKLP0fSQ"},
-    "5": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"5EvtruS0GOA"},
-    "6": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"YS6OoXqB4YI"},
-    "7": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"FU6a6XpdBbc"},
-    "8": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"k8CENOrcKlw"},
-    "9": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"h0X9BHffPTw"},
-    "10": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"RTDG0GyDkE4"},
-    "11": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"PPs6O3V03WM"},
-    "12": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"kzO_mLo2pI4"},
-    "13": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"iuiDaY4p3uA"},
-    "14": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"XhMzP0Yx350"},
-    "15": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"_MxNHPustRU"},
-    "16": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"5-LJbduQeJU"},
-    "17": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"toP8-xK7gNs"},
-    "18": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"BpkaTMJ6ssE"},
-    "19": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"qj236xiFK4o"},
-    "20": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"Rqi9Ad4_qLg"},
-    "21": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"KvkOkA8RbfA"},
-    "22": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"bK5XdIVxD5A"},
-    "23": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"mCM5hFHbzjA"},
-    "24": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"jPTFNpLnzjA"},
-    "25": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"jE0QuQLvKBM"}
+    "1": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "O1hbt4c1X9o",
+      "title": "Attack on Titan — Episode 1"
+    },
+    "2": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "jGldyw-V6Zk",
+      "title": "Attack on Titan — Episode 2"
+    },
+    "3": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "sgGWPzqVwnc",
+      "title": "Attack on Titan — Episode 3"
+    },
+    "4": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "Am7WKLP0fSQ",
+      "title": "Attack on Titan — Episode 4"
+    },
+    "5": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "5EvtruS0GOA",
+      "title": "Attack on Titan — Episode 5"
+    },
+    "6": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "YS6OoXqB4YI",
+      "title": "Attack on Titan — Episode 6"
+    },
+    "7": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "FU6a6XpdBbc",
+      "title": "Attack on Titan — Episode 7"
+    },
+    "8": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "k8CENOrcKlw",
+      "title": "Attack on Titan — Episode 8"
+    },
+    "9": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "h0X9BHffPTw",
+      "title": "Attack on Titan — Episode 9"
+    },
+    "10": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "RTDG0GyDkE4",
+      "title": "Attack on Titan — Episode 10"
+    },
+    "11": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "PPs6O3V03WM",
+      "title": "Attack on Titan — Episode 11"
+    },
+    "12": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "kzO_mLo2pI4",
+      "title": "Attack on Titan — Episode 12"
+    },
+    "13": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "iuiDaY4p3uA",
+      "title": "Attack on Titan — Episode 13"
+    },
+    "14": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "XhMzP0Yx350",
+      "title": "Attack on Titan — Episode 14"
+    },
+    "15": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "_MxNHPustRU",
+      "title": "Attack on Titan — Episode 15"
+    },
+    "16": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "5-LJbduQeJU",
+      "title": "Attack on Titan — Episode 16"
+    },
+    "17": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "toP8-xK7gNs",
+      "title": "Attack on Titan — Episode 17"
+    },
+    "18": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "BpkaTMJ6ssE",
+      "title": "Attack on Titan — Episode 18"
+    },
+    "19": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "qj236xiFK4o",
+      "title": "Attack on Titan — Episode 19"
+    },
+    "20": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "Rqi9Ad4_qLg",
+      "title": "Attack on Titan — Episode 20"
+    },
+    "21": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "KvkOkA8RbfA",
+      "title": "Attack on Titan — Episode 21"
+    },
+    "22": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "bK5XdIVxD5A",
+      "title": "Attack on Titan — Episode 22"
+    },
+    "23": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "mCM5hFHbzjA",
+      "title": "Attack on Titan — Episode 23"
+    },
+    "24": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "jPTFNpLnzjA",
+      "title": "Attack on Titan — Episode 24"
+    },
+    "25": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "jE0QuQLvKBM",
+      "title": "Attack on Titan — Episode 25"
+    }
   },
   "25777": {
-    "1": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"3yS8cxDpq64"},
-    "2": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"4PVl9C3hr4o"},
-    "3": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"gvtogj95A04"},
-    "4": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"DgNU4BYeYTU"},
-    "5": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"i1VZEBwv0sg"},
-    "6": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"q4G6Gqa0Y_w"},
-    "7": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"DpM0qxPNDUs"},
-    "8": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"tCCFE-TlR8g"},
-    "9": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"oGloNKNK_nY"},
-    "10": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"faR2qzAX-ew"},
-    "11": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"IeGG3grRc5I"},
-    "12": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"fF47Mtvh9vs"}
+    "1": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "3yS8cxDpq64",
+      "title": "Attack on Titan — Episode 1"
+    },
+    "2": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "4PVl9C3hr4o",
+      "title": "Attack on Titan — Episode 2"
+    },
+    "3": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "gvtogj95A04",
+      "title": "Attack on Titan — Episode 3"
+    },
+    "4": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "DgNU4BYeYTU",
+      "title": "Attack on Titan — Episode 4"
+    },
+    "5": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "i1VZEBwv0sg",
+      "title": "Attack on Titan — Episode 5"
+    },
+    "6": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "q4G6Gqa0Y_w",
+      "title": "Attack on Titan — Episode 6"
+    },
+    "7": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "DpM0qxPNDUs",
+      "title": "Attack on Titan — Episode 7"
+    },
+    "8": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "tCCFE-TlR8g",
+      "title": "Attack on Titan — Episode 8"
+    },
+    "9": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "oGloNKNK_nY",
+      "title": "Attack on Titan — Episode 9"
+    },
+    "10": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "faR2qzAX-ew",
+      "title": "Attack on Titan — Episode 10"
+    },
+    "11": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "IeGG3grRc5I",
+      "title": "Attack on Titan — Episode 11"
+    },
+    "12": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "fF47Mtvh9vs",
+      "title": "Attack on Titan — Episode 12"
+    }
   },
   "35760": {
-    "1": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"Bx0JEOXfRQY"},
-    "2": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"73Bk8zIAwb8"},
-    "3": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"MCrQjTRKUcM"},
-    "4": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"vSIZY806ipQ"},
-    "5": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"8WYQHXrWYw8"},
-    "6": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"e-D1GsaTq9s"},
-    "7": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"3RL7mXX1bWE"},
-    "8": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"c03S2WSQ8xU"},
-    "9": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"Po30_DTJhVI"},
-    "10": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"Pii3_l78f_E"},
-    "11": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"qYyzHmIHpTI"},
-    "12": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"7B9iHd4o4M0"}
+    "1": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "Bx0JEOXfRQY",
+      "title": "Attack on Titan — Episode 1"
+    },
+    "2": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "73Bk8zIAwb8",
+      "title": "Attack on Titan — Episode 2"
+    },
+    "3": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "MCrQjTRKUcM",
+      "title": "Attack on Titan — Episode 3"
+    },
+    "4": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "vSIZY806ipQ",
+      "title": "Attack on Titan — Episode 4"
+    },
+    "5": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "8WYQHXrWYw8",
+      "title": "Attack on Titan — Episode 5"
+    },
+    "6": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "e-D1GsaTq9s",
+      "title": "Attack on Titan — Episode 6"
+    },
+    "7": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "3RL7mXX1bWE",
+      "title": "Attack on Titan — Episode 7"
+    },
+    "8": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "c03S2WSQ8xU",
+      "title": "Attack on Titan — Episode 8"
+    },
+    "9": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "Po30_DTJhVI",
+      "title": "Attack on Titan — Episode 9"
+    },
+    "10": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "Pii3_l78f_E",
+      "title": "Attack on Titan — Episode 10"
+    },
+    "11": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "qYyzHmIHpTI",
+      "title": "Attack on Titan — Episode 11"
+    },
+    "12": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "7B9iHd4o4M0",
+      "title": "Attack on Titan — Episode 12"
+    },
+    "13": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "12Dd5FCBE7k",
+      "title": "Attack on Titan — Episode 13"
+    },
+    "14": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "mZ1zc-gsTog",
+      "title": "Attack on Titan — Episode 14"
+    },
+    "15": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "vOhGlzpAdlk",
+      "title": "Attack on Titan — Episode 15"
+    },
+    "16": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "zoKuA_iMz4k",
+      "title": "Attack on Titan — Episode 16"
+    },
+    "17": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "Q86fwfiYRMA",
+      "title": "Attack on Titan — Episode 17"
+    },
+    "18": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "fOJIfJnad_0",
+      "title": "Attack on Titan — Episode 18"
+    },
+    "19": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "JGp5WdsnmXo",
+      "title": "Attack on Titan — Episode 19"
+    },
+    "20": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "Xm3B9iWAdCI",
+      "title": "Attack on Titan — Episode 20"
+    },
+    "21": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "nccIXG828Pc",
+      "title": "Attack on Titan — Episode 21"
+    },
+    "22": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "FdocyFEFFVw",
+      "title": "Attack on Titan — Episode 22"
+    }
   },
   "38524": {
-    "1": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"12Dd5FCBE7k"},
-    "2": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"mZ1zc-gsTog"},
-    "3": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"vOhGlzpAdlk"},
-    "4": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"zoKuA_iMz4k"},
-    "5": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"Q86fwfiYRMA"},
-    "6": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"fOJIfJnad_0"},
-    "7": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"JGp5WdsnmXo"},
-    "8": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"Xm3B9iWAdCI"},
-    "9": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"nccIXG828Pc"},
-    "10": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"FdocyFEFFVw"}
+    "1": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "12Dd5FCBE7k",
+      "title": "Attack on Titan — Episode 1"
+    },
+    "2": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "mZ1zc-gsTog",
+      "title": "Attack on Titan — Episode 2"
+    },
+    "3": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "vOhGlzpAdlk",
+      "title": "Attack on Titan — Episode 3"
+    },
+    "4": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "zoKuA_iMz4k",
+      "title": "Attack on Titan — Episode 4"
+    },
+    "5": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "Q86fwfiYRMA",
+      "title": "Attack on Titan — Episode 5"
+    },
+    "6": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "fOJIfJnad_0",
+      "title": "Attack on Titan — Episode 6"
+    },
+    "7": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "JGp5WdsnmXo",
+      "title": "Attack on Titan — Episode 7"
+    },
+    "8": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "Xm3B9iWAdCI",
+      "title": "Attack on Titan — Episode 8"
+    },
+    "9": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "nccIXG828Pc",
+      "title": "Attack on Titan — Episode 9"
+    },
+    "10": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "FdocyFEFFVw",
+      "title": "Attack on Titan — Episode 10"
+    }
   },
   "40028": {
-    "1": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"zCQqilqB9t4"},
-    "2": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"T5iF-49nGRc"},
-    "3": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"laS0_emh4KE"},
-    "4": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"SVepsjMR2i4"},
-    "5": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"gVO0Lo7ka4E"},
-    "6": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"9cXUVHBY38U"},
-    "7": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"ixngomNSdpE"},
-    "8": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"W9b-ZwyE_MY"},
-    "9": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"1o8zbzOAGX4"},
-    "10": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"YY-yEkvC3Z4"},
-    "11": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"GqaBqEP_waY"},
-    "12": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"_oCZ5EHIaNo"},
-    "13": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"FHl8rFduPpY"},
-    "14": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"-vKW08HSZjM"},
-    "15": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"i-UpToV3BJ0"},
-    "16": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"tjlSninopSE"}
+    "1": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "zCQqilqB9t4",
+      "title": "Attack on Titan — Episode 1"
+    },
+    "2": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "T5iF-49nGRc",
+      "title": "Attack on Titan — Episode 2"
+    },
+    "3": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "laS0_emh4KE",
+      "title": "Attack on Titan — Episode 3"
+    },
+    "4": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "SVepsjMR2i4",
+      "title": "Attack on Titan — Episode 4"
+    },
+    "5": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "gVO0Lo7ka4E",
+      "title": "Attack on Titan — Episode 5"
+    },
+    "6": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "9cXUVHBY38U",
+      "title": "Attack on Titan — Episode 6"
+    },
+    "7": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "ixngomNSdpE",
+      "title": "Attack on Titan — Episode 7"
+    },
+    "8": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "W9b-ZwyE_MY",
+      "title": "Attack on Titan — Episode 8"
+    },
+    "9": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "1o8zbzOAGX4",
+      "title": "Attack on Titan — Episode 9"
+    },
+    "10": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "YY-yEkvC3Z4",
+      "title": "Attack on Titan — Episode 10"
+    },
+    "11": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "GqaBqEP_waY",
+      "title": "Attack on Titan — Episode 11"
+    },
+    "12": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "_oCZ5EHIaNo",
+      "title": "Attack on Titan — Episode 12"
+    },
+    "13": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "FHl8rFduPpY",
+      "title": "Attack on Titan — Episode 13"
+    },
+    "14": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "-vKW08HSZjM",
+      "title": "Attack on Titan — Episode 14"
+    },
+    "15": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "i-UpToV3BJ0",
+      "title": "Attack on Titan — Episode 15"
+    },
+    "16": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "tjlSninopSE",
+      "title": "Attack on Titan — Episode 16"
+    }
   },
   "48583": {
-    "1": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"5UQmrZGDhK0"},
-    "2": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"_zy9itpveNE"},
-    "3": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"izC25sY4yuY"},
-    "4": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"2BUPP4I3jM4"},
-    "5": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"9TCphIzY--g"},
-    "6": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"dXUGZhZ30ew"},
-    "7": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"ZLX6i-wAanc"},
-    "8": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"a29Y9ehVi5Q"},
-    "9": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"awpKtJ6m3nE"},
-    "10": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"XWBRqOQNuW8"},
-    "11": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"IM63-XtU2Lo"},
-    "12": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"5MQjix2EuyM"}
+    "1": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "5UQmrZGDhK0",
+      "title": "Attack on Titan — Episode 1"
+    },
+    "2": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "_zy9itpveNE",
+      "title": "Attack on Titan — Episode 2"
+    },
+    "3": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "izC25sY4yuY",
+      "title": "Attack on Titan — Episode 3"
+    },
+    "4": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "2BUPP4I3jM4",
+      "title": "Attack on Titan — Episode 4"
+    },
+    "5": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "9TCphIzY--g",
+      "title": "Attack on Titan — Episode 5"
+    },
+    "6": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "dXUGZhZ30ew",
+      "title": "Attack on Titan — Episode 6"
+    },
+    "7": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "ZLX6i-wAanc",
+      "title": "Attack on Titan — Episode 7"
+    },
+    "8": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "a29Y9ehVi5Q",
+      "title": "Attack on Titan — Episode 8"
+    },
+    "9": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "awpKtJ6m3nE",
+      "title": "Attack on Titan — Episode 9"
+    },
+    "10": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "XWBRqOQNuW8",
+      "title": "Attack on Titan — Episode 10"
+    },
+    "11": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "IM63-XtU2Lo",
+      "title": "Attack on Titan — Episode 11"
+    },
+    "12": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "5MQjix2EuyM",
+      "title": "Attack on Titan — Episode 12"
+    }
   },
   "51535": {
-    "1": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"rcHHMijhsvI"},
-    "2": {"provider":"youtube","playlistId":"PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR","videoId":"Mh2Ew_cDbnM"}
+    "1": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "rcHHMijhsvI",
+      "title": "Attack on Titan — The Final Chapters Part One"
+    },
+    "2": {
+      "provider": "youtube",
+      "playlistId": "PLwLSw1_eDZl1Z2OaPWYl4DqhX9GkB-jkR",
+      "videoId": "Mh2Ew_cDbnM",
+      "title": "Attack on Titan — The Final Chapters Part Two"
+    }
   }
 }
