@@ -8,6 +8,7 @@
 
 const API_BASE = "https://api.tenrai.org/v1";
 const PAGE_SIZE = 24;
+const HIDDEN_ANIME_IDS = new Set([38524]); // Fold Season 3 Part 2 into Season 3.
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -55,11 +56,23 @@ function writeStorage(key, value) {
 }
 
 function getWatchlist() {
-  return readStorage("animep_watchlist", []);
+  return [...new Set(readStorage("animep_watchlist", []).map((id) =>
+    Number(id) === 38524 ? 35760 : Number(id)
+  ))];
 }
 
 function getHistory() {
-  return readStorage("animep_history", []);
+  const canonicalSeason3 = animeCatalog.find((anime) => anime.id === 35760);
+  return readStorage("animep_history", []).map((entry) =>
+    Number(entry.id) === 38524
+      ? {
+          ...entry,
+          ...(canonicalSeason3 || {}),
+          id: 35760,
+          lastOpened: entry.lastOpened
+        }
+      : entry
+  );
 }
 
 function normalizeAnime(item) {
@@ -171,6 +184,7 @@ async function fetchJSON(url) {
 
 function filteredAnime(source = null) {
   let list = source || searchResults || animeCatalog;
+  list = list.filter((anime) => !HIDDEN_ANIME_IDS.has(Number(anime.id)));
 
   if (activeGenre !== "All") {
     const aliases = GENRE_ALIASES[activeGenre] || [activeGenre];
@@ -422,7 +436,7 @@ function addToHistory(anime) {
 }
 
 function removeFromHistory(id) {
-  writeStorage("animep_history", getHistory().filter((item) => item.id !== id));
+  writeStorage("animep_history", getHistory().filter((item) => item.id !== Number(id)));
   renderContinueWatching();
   showToast("Removed from Continue Watching.");
 }
@@ -526,14 +540,9 @@ function renderEpisodeList(anime, episodes, totalEpisodes) {
   const container = getEpisodeListContainer();
   if (!container) return;
 
-  // The catalogue API groups both cours under Season 3 (22 episodes), while
-  // Anime:P has a separate Season 3 Part 2 entry. Keep Part 1 to episodes 1–12
-  // so episodes 13–22 appear only in the Part 2 entry.
   const isAttackOnTitanSeason3 = Number(anime.id) === 35760;
-  const listedEpisodes = isAttackOnTitanSeason3
-    ? episodes.filter((episode) => Number(episode.mal_id) <= 12)
-    : episodes;
-  const displayedTotal = isAttackOnTitanSeason3 ? 12 : totalEpisodes;
+  const listedEpisodes = episodes;
+  const displayedTotal = isAttackOnTitanSeason3 ? 22 : totalEpisodes;
 
   if (!listedEpisodes.length) {
     container.innerHTML = `
@@ -553,7 +562,7 @@ function renderEpisodeList(anime, episodes, totalEpisodes) {
   note.textContent =
     `Showing ${listedEpisodes.length} listed episode${listedEpisodes.length === 1 ? "" : "s"}` +
     (displayedTotal ? ` out of ${displayedTotal}.` : ".") +
-    " Play buttons open provider search results; availability varies.";
+    " In-site playback is available for configured episodes; availability varies.";
 
   const list = document.createElement("div");
   list.className = "episode-list-items";
@@ -615,7 +624,7 @@ async function loadEpisodeInfo(anime, requestId) {
 
     const episodes = result.data || [];
     const total = result.pagination?.items?.total || anime.episodes || null;
-    const displayedTotal = Number(anime.id) === 35760 ? 12 : total;
+    const displayedTotal = Number(anime.id) === 35760 ? 22 : total;
 
     if (info) {
       info.textContent = displayedTotal
@@ -644,7 +653,8 @@ async function loadEpisodeInfo(anime, requestId) {
 }
 
 function openDetails(id) {
-  const anime = findAnime(id);
+  const selectedId = Number(id) === 38524 ? 35760 : Number(id);
+  const anime = findAnime(selectedId);
 
   if (!anime) {
     showToast("Anime details are not available yet.");
