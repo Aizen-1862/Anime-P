@@ -17,6 +17,9 @@
   const validYouTubeId = (id) =>
     typeof id === "string" && /^[A-Za-z0-9_-]{11}$/.test(id);
 
+  const validYouTubePlaylistId = (id) =>
+    typeof id === "string" && /^[A-Za-z0-9_-]{10,64}$/.test(id);
+
   async function loadStreams() {
     try {
       const response = await fetch(
@@ -185,8 +188,13 @@
     const frame = document.createElement("iframe");
     frame.className = "ap-player-frame";
     frame.title = `${animeTitle} — Episode ${currentEpisode}`;
-    frame.src =
-      `https://www.youtube-nocookie.com/embed/${encodeURIComponent(entry.videoId)}`;
+    const embedUrl = new URL(
+      `https://www.youtube-nocookie.com/embed/${encodeURIComponent(entry.videoId)}`
+    );
+    if (validYouTubePlaylistId(entry.playlistId)) {
+      embedUrl.searchParams.set("list", entry.playlistId);
+    }
+    frame.src = embedUrl.toString();
     frame.allow =
       "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
     frame.allowFullscreen = true;
