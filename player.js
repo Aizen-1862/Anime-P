@@ -228,6 +228,8 @@
     document.body.style.overflow = "";
 
     currentVideoId = "";
+    currentAnimeId = null;
+    currentEpisode = null;
   }
 
   function showToastSafe(message) {
@@ -293,22 +295,13 @@
   }
 
   function getCurrentAnimeId() {
-    // The original script exposes the selected anime through its detail view.
-    // The anime ID is read from the current episode source buttons when possible.
-    if (currentAnimeId) return currentAnimeId;
+    const selectedId = Number(
+      document.getElementById("detailModal")?.dataset.animeId
+    );
 
-    const title = getAnimeTitleFromModal();
-
-    try {
-      const history = JSON.parse(
-        localStorage.getItem("animep_history") || "[]"
-      );
-
-      const match = history.find((anime) => anime.title === title);
-      return match?.id || null;
-    } catch {
-      return null;
-    }
+    return Number.isSafeInteger(selectedId) && selectedId > 0
+      ? selectedId
+      : null;
   }
 
   function watchEpisodeList() {
