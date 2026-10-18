@@ -646,6 +646,9 @@ function openDetails(id) {
 
   addToHistory(anime);
 
+  // Expose the selected catalogue ID to the player without title/history lookup.
+  $("#detailModal").dataset.animeId = String(anime.id);
+
   $("#detailTitle").textContent = anime.title;
   $("#detailType").textContent = anime.type.toUpperCase();
 
@@ -689,6 +692,7 @@ function openDetails(id) {
 function closeDetails() {
   detailRequestId++;
   $("#detailModal").hidden = true;
+  delete $("#detailModal").dataset.animeId;
   document.body.style.overflow = "";
   currentAnime = null;
 }
